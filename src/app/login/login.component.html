@@ -1,0 +1,34 @@
+<div class="login-container">
+  <mat-card class="invalid-login" *ngIf="!hideInvalidLogin">
+    <span>
+      <mat-icon class="error-icon" color="warn">error</mat-icon>
+      Invalid username or password.
+      <button mat-icon-button class="close-button" (click)="hideInvalidLogin = !hideInvalidLogin"><mat-icon>close</mat-icon></button>
+    </span>
+  </mat-card>
+
+  <form [formGroup]="loginForm">
+    <mat-card>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <mat-form-field class="login-form-field">
+          <input matInput placeholder="Username or Email" formControlName="username">
+          <mat-error *ngIf="loginForm.hasError('required', 'username')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-form-field">
+          <input matInput placeholder="Password" formControlName="password" [type]="hidePassword ? 'password' : 'text'"/>
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="loginForm.hasError('required', 'password')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+         <button mat-stroked-button class="login-button" (click)="login()">Login</button>
+         <a mat-button color="primary" routerLink="/reset-password">Forgot your password?</a>
+       </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

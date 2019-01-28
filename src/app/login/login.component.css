@@ -1,0 +1,29 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin: 40px auto;
+}
+
+.invalid-login {
+  margin-bottom: 20px;
+}
+
+.invalid-login span {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+}
+
+.error-icon, .login-button {
+  margin-right: 15px;
+}
+
+.close-button {
+  margin-left: auto;
+}
+
+.login-form-field {
+  width: 100%;
+}
