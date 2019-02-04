@@ -14,14 +14,18 @@ import {
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent
+    ChangePasswordComponent,
+    ForgotPasswordComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -35,7 +39,7 @@ import { HomeComponent } from './home/home.component';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [

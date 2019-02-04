@@ -12,3 +12,33 @@ body {
 html, body, .mat-app-background {
   background: #e7edf2;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin: 40px auto;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.error-card {
+  margin-bottom: 20px;
+}
+
+.error-card > span {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+}
+
+.error-icon, .submit-button {
+  margin-right: 15px;
+}
+
+.close-button {
+  margin-left: auto !important;
+}

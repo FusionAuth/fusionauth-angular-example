@@ -3,21 +3,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 
+import { ForgotPasswordComponent } from './forgot-password.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+
+describe('ForgotPasswordComponent', () => {
+  let component: ForgotPasswordComponent;
+  let fixture: ComponentFixture<ForgotPasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ ForgotPasswordComponent ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
         MatFormFieldModule, FormsModule, ReactiveFormsModule
       ],
-      providers: [
+      providers:    [
         { provide: FusionAuthService, useValue: null }
       ]
     })
@@ -25,7 +26,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

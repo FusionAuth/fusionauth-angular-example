@@ -2,22 +2,25 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { ChangePasswordComponent } from './change-password.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+
+describe('ChangePasswordComponent', () => {
+  let component: ChangePasswordComponent;
+  let fixture: ComponentFixture<ChangePasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ ChangePasswordComponent ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
-        MatFormFieldModule, FormsModule, ReactiveFormsModule
+        MatFormFieldModule, FormsModule, ReactiveFormsModule,
+        RouterTestingModule.withRoutes([{ path: 'password/change/:id', component: ChangePasswordComponent }])
       ],
-      providers: [
+      providers:    [
         { provide: FusionAuthService, useValue: null }
       ]
     })
@@ -25,7 +28,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(ChangePasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

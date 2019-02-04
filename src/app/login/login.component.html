@@ -1,9 +1,9 @@
-<div class="login-container">
-  <mat-card class="invalid-login" *ngIf="!hideInvalidLogin">
+<div class="form-container">
+  <mat-card class="error-card" *ngIf="showInvalidMsg">
     <span>
       <mat-icon class="error-icon" color="warn">error</mat-icon>
-      Invalid username or password.
-      <button mat-icon-button class="close-button" (click)="hideInvalidLogin = !hideInvalidLogin"><mat-icon>close</mat-icon></button>
+      <span>Invalid username or password.</span>
+      <button mat-icon-button class="close-button" (click)="showInvalidMsg = !showInvalidMsg"><mat-icon>close</mat-icon></button>
     </span>
   </mat-card>
 
@@ -11,23 +11,24 @@
     <mat-card>
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
-        <mat-form-field class="login-form-field">
+        <mat-form-field class="form-field">
           <input matInput placeholder="Username or Email" formControlName="username">
           <mat-error *ngIf="loginForm.hasError('required', 'username')">
-            Email is <strong>required</strong>
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="login-form-field">
-          <input matInput placeholder="Password" formControlName="password" [type]="hidePassword ? 'password' : 'text'"/>
-          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-form-field class="form-field">
+          <input matInput placeholder="Password" formControlName="password" [type]="showPassword ? 'text' : 'password'" autocomplete="new-password"/>
+          <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
           <mat-error *ngIf="loginForm.hasError('required', 'password')">
-            Password is <strong>required</strong>
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
-         <button mat-stroked-button class="login-button" (click)="login()">Login</button>
-         <a mat-button color="primary" routerLink="/reset-password">Forgot your password?</a>
+         <button mat-stroked-button class="submit-button" (click)="submit()">Submit</button>
+         <a mat-button color="primary" routerLink="/user/forgot-password">Forgot your password?</a>
+         <a mat-button color="primary" routerLink="/user/register">Sign up.</a>
        </mat-card-actions>
     </mat-card>
   </form>

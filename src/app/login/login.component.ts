@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../fusionauth/fusionauth.service';
+import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-login',
@@ -11,8 +10,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 })
 
 export class LoginComponent {
-  hidePassword = true;
-  hideInvalidLogin = true;
+  showPassword = false;
+  showInvalidMsg = false;
   loginForm = new FormGroup({
     password: new FormControl('', [ Validators.required ]),
     username: new FormControl('', [ Validators.required ])
@@ -20,26 +19,27 @@ export class LoginComponent {
 
   constructor(private fusionAuthService: FusionAuthService) {
     this.loginForm.get('username').setValue('angular');
-    this.loginForm.get('password').setValue('angulario!');
+    this.loginForm.get('password').setValue('password');
+    this.showPassword = false;
   }
 
-  login() {
+  submit() {
+    this.showInvalidMsg = false;
     if (this.loginForm.valid) {
       this.fusionAuthService
         .login({
           'loginId': this.loginForm.get('username').value,
           'password': this.loginForm.get('password').value
-          //'applicationId': 'f60bbe99-db20-47a1-bc86-3c96146a1fcd'
         })
-        .subscribe((e) => this.handleLoginSuccess(e), (r) => this.handleLoginFailure(r));
+        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
     }
   }
 
-  handleLoginFailure(error: HttpErrorResponse) {
-    this.hideInvalidLogin = false;
+  handleFailure(error: HttpErrorResponse) {
+    this.showInvalidMsg = true;
   }
 
-  handleLoginSuccess(response: HttpResponse<any>) {
+  handleSuccess(response: HttpResponse<any>) {
     // Navigate to page?
   }
 }
