@@ -48,6 +48,15 @@ export class FusionAuthService {
       .build();
   }
 
+  register(userId, request) {
+    return this.start()
+      .setUri('/api/user/registration')
+      .addUriSegment(userId)
+      .setJsonBody(request)
+      .setMethod('POST')
+      .build();
+  }
+
   private start() {
     return new HttpRequestBuilder(this.http)
       .setHeader('Authorization', this.apiKey)
