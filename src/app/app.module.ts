@@ -9,6 +9,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatSelectModule
 } from '@angular/material';
 
@@ -40,6 +41,7 @@ import { RegisterComponent } from './register/register.component';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatSelectModule,
     ReactiveFormsModule
   ],
