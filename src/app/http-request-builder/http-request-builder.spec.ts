@@ -52,4 +52,12 @@ describe('HttpRequestBuilder', () => {
     expect(options.params.get('one')).toEqual('uno');
     expect(options.params.toString()).toMatch('two=due');
   });
+
+  it('should not add empty uri segments', () => {
+    const url = builder.setUrl('http://test.com')
+      .addUriSegment('one')
+      .addUriSegment(null)
+      .getFullUrl();
+    expect(url).toEqual('http://test.com/one');
+  });
 });

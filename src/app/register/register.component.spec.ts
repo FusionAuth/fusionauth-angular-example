@@ -16,7 +16,8 @@ describe('RegisterComponent', () => {
       declarations: [ RegisterComponent ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
-        MatFormFieldModule, FormsModule, ReactiveFormsModule
+        MatFormFieldModule, FormsModule, ReactiveFormsModule,
+        RouterTestingModule
       ],
       providers:    [
         { provide: FusionAuthService, useValue: null }

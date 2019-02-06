@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 
 @Component({
@@ -24,13 +25,16 @@ export class RegisterComponent {
     validators: passwordValidator
   });
 
-  constructor(private fusionAuthService: FusionAuthService) { }
+  constructor(private fusionAuthService: FusionAuthService, private router: Router) { }
 
   submit() {
-    this.showMsg = false;
+    this.resetShowMsg();
     if (this.mainForm.valid) {
       this.fusionAuthService
         .register(null, {
+          registration: {
+            applicationId: 'ad020c90-e0c8-4173-b914-d1409b9a5da9'
+          },
           user: {
             email: this.mainForm.get('email').value,
             firstName: this.mainForm.get('firstName').value,
@@ -42,11 +46,17 @@ export class RegisterComponent {
     }
   }
 
+  private resetShowMsg() {
+    this.showMsg = false;
+  }
+
+
   handleFailure(error: HttpErrorResponse) {
     this.showMsg = true;
+    console.log(error);
   }
 
   handleSuccess(response: HttpResponse<any>) {
-    // Navigate to page?
+    this.router.navigate(['/login', { showRegistrationMsg: true }]);
   }
 }

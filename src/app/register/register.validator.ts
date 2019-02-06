@@ -13,7 +13,6 @@ export const passwordValidator: ValidatorFn = (group: FormGroup): ValidationErro
   const password = group.controls['password'].value;
   const confirmPassword = group.controls['confirmPassword'].value;
 
-  console.log(Date.now(), password && confirmPassword && password === confirmPassword ? null : { 'passwordMismatch': true });
   return password && confirmPassword && password === confirmPassword ? null : { 'passwordMismatch': true };
 };
 

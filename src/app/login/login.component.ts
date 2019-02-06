@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -9,18 +11,24 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   showPassword = false;
   showInvalidMsg = false;
+  showRegistrationMsg = false;
+
   loginForm = new FormGroup({
     password: new FormControl('', [ Validators.required ]),
     username: new FormControl('', [ Validators.required ])
   });
 
-  constructor(private fusionAuthService: FusionAuthService) {
+  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService) {
     this.loginForm.get('username').setValue('angular');
     this.loginForm.get('password').setValue('password');
     this.showPassword = false;
+  }
+
+  ngOnInit() {
+    this.showRegistrationMsg = this.route.snapshot.paramMap.get('showRegistrationMsg') === 'true';
   }
 
   submit() {

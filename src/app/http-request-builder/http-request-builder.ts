@@ -33,13 +33,15 @@ export class HttpRequestBuilder {
    * Adds a segment to the request uri
    */
   addUriSegment(segment) {
-    if (this.uri === null) {
+    if (typeof this.uri !== 'string') {
       this.uri = '';
     }
-    if (this.uri.charAt(this.uri.length - 1) !== '/') {
-      this.uri = this.uri + '/';
+    if (segment !== null && typeof segment !== 'undefined') {
+      if (this.uri.charAt(this.uri.length - 1) !== '/') {
+        this.uri = this.uri + '/';
+      }
+      this.uri = this.uri + segment;
     }
-    this.uri = this.uri + segment;
     return this;
   }
 
