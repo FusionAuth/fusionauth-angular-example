@@ -5,7 +5,7 @@
       <mat-nav-list>
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" [routerLink]="['/login', { showRegistrationMsg: true }]">Login w/ registration message</a>
-        <a mat-list-item color="primary" routerLink="/code" disabled="true">MFA</a>
+        <a mat-list-item color="primary" routerLink="/login/two-factor/token">Two Factor</a>
         <a mat-list-item color="primary" routerLink="/user/forgot-password">Forgot Password</a>
         <a mat-list-item color="primary" routerLink="/password/change">Change Password by Identity</a>
         <a mat-list-item color="primary" routerLink="/password/change/token">Reset Password (with invalid token)</a>

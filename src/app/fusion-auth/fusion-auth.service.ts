@@ -57,6 +57,14 @@ export class FusionAuthService {
       .build();
   }
 
+  twoFactorLogin(request) {
+    return this.start()
+      .setUri('/api/two-factor/login')
+      .setJsonBody(request)
+      .setMethod('POST')
+      .build();
+  }
+
   private start() {
     return new HttpRequestBuilder(this.http)
       .setHeader('Authorization', this.apiKey)
