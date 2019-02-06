@@ -1,15 +1,18 @@
-<div class="main-container">
+<div class="home-container">
   <mat-card>
     <mat-card-title>FusionAuth Angular Example</mat-card-title>
     <mat-card-content>
-      <a mat-button color="primary" routerLink="/login">Login</a>
-      <a mat-button color="primary" routerLink="/code" disabled="true">MFA</a>
-      <a mat-button color="primary" routerLink="/user/forgot-password">Forgot Password</a>
-      <a mat-button color="primary" routerLink="/password/change">Change Password by Identity</a>
-      <a mat-button color="primary" routerLink="/password/change/token">Reset Password (with invalid token)</a>
-      <a mat-button color="primary" routerLink="/sign-up" disabled="true">Sign Up</a>
+      <mat-nav-list>
+        <a mat-list-item color="primary" routerLink="/login">Login</a>
+        <a mat-list-item color="primary" [routerLink]="['/login', { showRegistrationMsg: true }]">Login w/ registration message</a>
+        <a mat-list-item color="primary" routerLink="/code" disabled="true">MFA</a>
+        <a mat-list-item color="primary" routerLink="/user/forgot-password">Forgot Password</a>
+        <a mat-list-item color="primary" routerLink="/password/change">Change Password by Identity</a>
+        <a mat-list-item color="primary" routerLink="/password/change/token">Reset Password (with invalid token)</a>
+        <a mat-list-item color="primary" routerLink="/user/register">Sign Up</a>
+      </mat-nav-list>
     </mat-card-content>
     <mat-card-actions>
-     </mat-card-actions>
+    </mat-card-actions>
   </mat-card>
 </div>

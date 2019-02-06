@@ -13,10 +13,10 @@ html, body, .mat-app-background {
   background: #e7edf2;
 }
 
-.form-container {
-  display: flex;
+.form-container, .home-container {
+/*  display: flex;
   flex-direction: column;
-  width: 33%;
+*/  width: 33%;
   margin: 40px auto;
 }
 

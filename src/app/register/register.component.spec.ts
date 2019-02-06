@@ -4,22 +4,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { RegisterComponent } from './register.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ RegisterComponent ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
         MatFormFieldModule, FormsModule, ReactiveFormsModule,
         RouterTestingModule
       ],
-      providers: [
+      providers:    [
         { provide: FusionAuthService, useValue: null }
       ]
     })
@@ -27,7 +27,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

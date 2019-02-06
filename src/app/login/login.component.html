@@ -10,6 +10,7 @@
   <form [formGroup]="loginForm">
     <mat-card>
       <mat-card-title>Login</mat-card-title>
+      <mat-card-subtitle *ngIf="showRegistrationMsg">Your registration was successful.  Please login.</mat-card-subtitle>
       <mat-card-content>
         <mat-form-field class="form-field">
           <input matInput placeholder="Username or Email" formControlName="username">
