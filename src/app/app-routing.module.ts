@@ -6,9 +6,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TwoFactorComponent } from './two-factor/two-factor.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'login/two-factor/:id', component: TwoFactorComponent },
   { path: 'password/change', component: ChangePasswordComponent },
   { path: 'password/change/:id', component: ChangePasswordComponent },
   { path: 'user/forgot-password', component: ForgotPasswordComponent },

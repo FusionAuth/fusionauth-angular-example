@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +16,15 @@ export class LoginComponent implements OnInit {
   showInvalidMsg = false;
   showRegistrationMsg = false;
 
-  loginForm = new FormGroup({
+  mainForm = new FormGroup({
     password: new FormControl('', [ Validators.required ]),
-    username: new FormControl('', [ Validators.required ])
+    loginId: new FormControl('', [ Validators.required ])
   });
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService) {
-    this.loginForm.get('username').setValue('angular');
-    this.loginForm.get('password').setValue('password');
-    this.showPassword = false;
+  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
+    //TODO: Remove this before release
+    this.mainForm.get('loginId').setValue('angular@fusionauth.io');
+    this.mainForm.get('password').setValue('angulario');
   }
 
   ngOnInit() {
@@ -33,12 +33,9 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.showInvalidMsg = false;
-    if (this.loginForm.valid) {
+    if (this.mainForm.valid) {
       this.fusionAuthService
-        .login({
-          'loginId': this.loginForm.get('username').value,
-          'password': this.loginForm.get('password').value
-        })
+        .login(this.mainForm.value)
         .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
     }
   }
@@ -48,6 +45,13 @@ export class LoginComponent implements OnInit {
   }
 
   handleSuccess(response: HttpResponse<any>) {
-    // Navigate to page?
+    if (response.status === 203) {
+      //TODO: Create a route and update change password to respond to different routes
+      this.router.navigate(['/password/change-required', response.body.changePasswordId]);
+    } else if (response.status === 242) {
+      this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 }

@@ -7,21 +7,21 @@
     </span>
   </mat-card>
 
-  <form [formGroup]="loginForm">
+  <form [formGroup]="mainForm">
     <mat-card>
       <mat-card-title>Login</mat-card-title>
       <mat-card-subtitle *ngIf="showRegistrationMsg">Your registration was successful.  Please login.</mat-card-subtitle>
       <mat-card-content>
         <mat-form-field class="form-field">
-          <input matInput placeholder="Username or Email" formControlName="username">
-          <mat-error *ngIf="loginForm.hasError('required', 'username')">
+          <input matInput placeholder="Username or Email" formControlName="loginId">
+          <mat-error *ngIf="mainForm.hasError('required', 'loginId')">
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="form-field">
           <input matInput placeholder="Password" formControlName="password" [type]="showPassword ? 'text' : 'password'" autocomplete="new-password"/>
           <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-          <mat-error *ngIf="loginForm.hasError('required', 'password')">
+          <mat-error *ngIf="mainForm.hasError('required', 'password')">
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
