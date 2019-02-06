@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'login/two-factor/:id', component: TwoFactorComponent },
   { path: 'password/change', component: ChangePasswordComponent },
   { path: 'password/change/:id', component: ChangePasswordComponent },
+  { path: 'password/setup', component: ChangePasswordComponent },
   { path: 'user/forgot-password', component: ForgotPasswordComponent },
   { path: 'user/register', component: RegisterComponent },
   { path: '**', component: HomeComponent }
