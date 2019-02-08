@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { RegisterComponent } from './register.component';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -13,7 +14,10 @@ describe('RegisterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ],
+      declarations: [
+        RegisterComponent,
+        ErrorMessageComponent
+      ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
         MatFormFieldModule, FormsModule, ReactiveFormsModule,

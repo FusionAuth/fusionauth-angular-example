@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./two-factor.component.css']
 })
 export class TwoFactorComponent implements OnInit {
-  showNotEnabledMsg = true;
+  showExpiredMsg: boolean;
+  showInvalidCodeMsg: boolean;
   twoFactorId: string;
   mainForm = new FormGroup({
     code: new FormControl('', [ Validators.required ]),
@@ -48,7 +49,7 @@ export class TwoFactorComponent implements OnInit {
   handleSuccess(response: HttpResponse<any>) {
     console.log(response);
     //TODO: Save .body.user.email for change password by identity
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
   }
 
 }

@@ -12,23 +12,27 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-  showPassword = false;
-  showInvalidMsg = false;
-  showRegistrationMsg = false;
-
-  mainForm = new FormGroup({
-    password: new FormControl('', [ Validators.required ]),
-    loginId: new FormControl('', [ Validators.required ])
-  });
+  mainForm: FormGroup;
+  showInvalidMsg: boolean;
+  showPassword: boolean;
+  showPasswordChangeMsg: boolean;
+  showRegistrationMsg: boolean;
 
   constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
-    //TODO: Remove this before release
-    this.mainForm.get('loginId').setValue('angular@fusionauth.io');
-    this.mainForm.get('password').setValue('angulario');
+    this.showInvalidMsg = false;
+    this.showPassword = false;
   }
 
   ngOnInit() {
     this.showRegistrationMsg = this.route.snapshot.paramMap.get('showRegistrationMsg') === 'true';
+    this.showPasswordChangeMsg = this.route.snapshot.paramMap.get('showPasswordChangeMsg') === 'true';
+    this.mainForm = new FormGroup({
+      password: new FormControl('', [ Validators.required ]),
+      loginId: new FormControl('', [ Validators.required ])
+    });
+    //TODO: Remove this before release
+    this.mainForm.get('loginId').setValue('angular@fusionauth.io');
+    this.mainForm.get('password').setValue('angulario');
   }
 
   submit() {
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit {
     } else if (response.status === 242) {
       this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);
     } else {
-      this.router.navigate(['/home']);
+      this.router.navigate(['']);
     }
   }
 }

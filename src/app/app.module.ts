@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TwoFactorComponent } from './two-factor/two-factor.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TwoFactorComponent } from './two-factor/two-factor.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    TwoFactorComponent
+    TwoFactorComponent,
+    ErrorMessageComponent
   ],
   imports: [
     AppRoutingModule,

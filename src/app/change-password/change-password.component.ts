@@ -1,8 +1,9 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+
+import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 
 
 @Component({
@@ -13,14 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 export class ChangePasswordComponent implements OnInit {
   changePasswordId: string;
   isChangeByIdentity: boolean;
-  showInvalidMsg: boolean;
+  mainForm: FormGroup;
   showExpiredMsg: boolean;
-  showOtherMsg: boolean;
+  showInvalidMsg: boolean;
   showNewPassword: boolean;
   showOldPassword: boolean;
-  mainForm: FormGroup;
+  showOtherMsg: boolean;
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService) {
+  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
     this.showNewPassword = false;
     this.showOldPassword = false;
     this.resetShowMsg();
@@ -29,7 +30,10 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {
     this.changePasswordId = this.route.snapshot.paramMap.get('id');
     this.isChangeByIdentity = !this.route.snapshot.paramMap.has('id');
+    this.buildFormGroup();
+  }
 
+  buildFormGroup() {
     const group: any = {};
     group['newPassword'] = new FormControl('', [ Validators.required ]);
     if (this.isChangeByIdentity) {
@@ -58,7 +62,7 @@ export class ChangePasswordComponent implements OnInit {
         };
         httpRequest = this.fusionAuthService.changePassword(this.changePasswordId, request);
       }
-      httpRequest.subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
+      httpRequest.subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
 
@@ -68,19 +72,25 @@ export class ChangePasswordComponent implements OnInit {
     this.showOtherMsg = false;
   }
 
-  handleFailure(error: HttpErrorResponse) {
-    if (error.status === 404) {
-      if (this.isChangeByIdentity) {
-        this.showInvalidMsg = true;
-      } else {
-        this.showExpiredMsg = true;
-      }
-    } else {
-      this.showOtherMsg = true;
+  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+    switch (response.status) {
+      case 200:
+        this.router.navigate(['/login', { showPasswordChangeMsg: true }]);
+        break;
+      case 400:
+        // TODO: How much messaging do we want to handle here?
+        // We could also write a password validator to match defaults for fusionauth
+        console.log(response);
+        break;
+      case 404:
+        if (this.isChangeByIdentity) {
+          this.showInvalidMsg = true;
+        } else {
+          this.showExpiredMsg = true;
+        }
+        break;
+      default:
+        this.showOtherMsg = true;
     }
-  }
-
-  handleSuccess(response: HttpResponse<any>) {
-    console.log(response);
   }
 }

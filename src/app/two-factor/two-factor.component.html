@@ -1,22 +1,11 @@
 <div class="form-container">
-  <mat-card class="error-card" *ngIf="showExpiredMsg">
-    <span>
-      <mat-icon class="error-icon" color="warn">error</mat-icon>
-      <span>
-        Two factor authorization token has expired.  You will need to login again
-        <a color="primary" routerLink="/login">here</a>.
-      </span>
-      <button mat-icon-button class="close-button" (click)="showExpiredMsg = !showExpiredMsg"><mat-icon>close</mat-icon></button>
-    </span>
-  </mat-card>
-
-  <mat-card class="error-card" *ngIf="showInvalidCodeMsg">
-    <span>
-      <mat-icon class="error-icon" color="warn">error</mat-icon>
-      The code you entered is invalid.
-      <button mat-icon-button class="close-button" (click)="showInvalidCodeMsg = !showInvalidCodeMsg"><mat-icon>close</mat-icon></button>
-    </span>
-  </mat-card>
+  <app-error-message [(show)]="showExpiredMsg">
+    Two factor authorization token has expired.  You will need to login again
+    <a color="primary" routerLink="/login">here</a>.
+  </app-error-message>
+  <app-error-message [(show)]="showInvalidCodeMsg">
+    The code you entered is invalid.
+  </app-error-message>
 
   <form [formGroup]="mainForm">
     <mat-card>

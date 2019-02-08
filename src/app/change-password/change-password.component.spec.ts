@@ -5,6 +5,7 @@ import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChangePasswordComponent } from './change-password.component';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 
 
@@ -14,7 +15,10 @@ describe('ChangePasswordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordComponent ],
+      declarations: [
+        ChangePasswordComponent,
+        ErrorMessageComponent
+      ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
         MatFormFieldModule, FormsModule, ReactiveFormsModule,

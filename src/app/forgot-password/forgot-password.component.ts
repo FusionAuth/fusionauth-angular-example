@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+
+import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,17 +13,22 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
   styleUrls: ['./forgot-password.component.css']
 })
 
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   showNotEnabledMsg: boolean;
   showInvalidMsg: boolean;
   showNoEmailMsg: boolean;
-  mainForm = new FormGroup({
-    username: new FormControl('', [ Validators.required ])
-  });
+  mainForm: FormGroup;
 
-  constructor(private fusionAuthService: FusionAuthService) {
-    this.mainForm.get('username').setValue('angular@fusionauth.io');
+  constructor(private fusionAuthService: FusionAuthService, private router: Router) {
     this.resetShowMsg();
+  }
+
+  ngOnInit() {
+    this.mainForm = new FormGroup({
+      username: new FormControl('', [ Validators.required ])
+    });
+    // TODO: Remove before release
+    this.mainForm.get('username').setValue('angular@fusionauth.io');
   }
 
   submit() {
@@ -29,7 +38,7 @@ export class ForgotPasswordComponent {
         .forgotPassword({
           'loginId': this.mainForm.get('username').value
         })
-        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
+        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
 
@@ -39,19 +48,22 @@ export class ForgotPasswordComponent {
     this.showNoEmailMsg = false;
   }
 
-  handleFailure(error: HttpErrorResponse) {
-    if (error.status === 403) {
-      this.showNotEnabledMsg = true;
+  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+    switch (response.status) {
+      case 200:
+        this.router.navigate(['/password/sent']);
+        break;
+      case 403:
+        this.showNotEnabledMsg = true;
+        break;
+      case 404:
+        this.showInvalidMsg = true;
+        break;
+      case 422:
+        this.showNoEmailMsg = true;
+      default:
+        // TODO:
+        // this.showOtherMsg = true;
     }
-    if (error.status === 404) {
-      this.showInvalidMsg = true;
-    }
-    if (error.status === 422) {
-      this.showNoEmailMsg = true;
-    }
-  }
-
-  handleSuccess(response: HttpResponse<any>) {
-    // this.router.navigate(['/user/change-password'], { queryParams: { changePasswordId: response.changePasswordId } });
   }
 }

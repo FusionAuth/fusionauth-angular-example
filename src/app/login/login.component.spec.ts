@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { LoginComponent } from './login.component';
 
@@ -13,7 +14,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [
+        LoginComponent,
+        ErrorMessageComponent
+      ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
         MatFormFieldModule, FormsModule, ReactiveFormsModule,
