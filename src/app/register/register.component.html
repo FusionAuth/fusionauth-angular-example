@@ -1,11 +1,7 @@
 <div class="form-container">
-  <mat-card class="error-card" *ngIf="showMsg">
-    <span>
-      <mat-icon class="error-icon" color="warn">error</mat-icon>
-      <span>An error occured and that is all I can say.</span>
-      <button mat-icon-button class="close-button" (click)="showMsg = !showMsg"><mat-icon>close</mat-icon></button>
-    </span>
-  </mat-card>
+  <app-error-message [(show)]="showMsg">
+    An error occured and that is all I can say.
+  </app-error-message>
 
   <form [formGroup]="mainForm">
     <mat-card>

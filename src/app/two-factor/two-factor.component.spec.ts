@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { TwoFactorComponent } from './two-factor.component';
 
@@ -14,7 +15,10 @@ describe('TwoFactorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TwoFactorComponent ],
+      declarations: [
+        TwoFactorComponent,
+        ErrorMessageComponent
+      ],
       imports: [
         BrowserAnimationsModule, FormsModule, ReactiveFormsModule,
         MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule,

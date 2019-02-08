@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 
@@ -17,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
   showNoEmailMsg: boolean;
   mainForm: FormGroup;
 
-  constructor(private fusionAuthService: FusionAuthService) {
+  constructor(private fusionAuthService: FusionAuthService, private router: Router) {
     this.resetShowMsg();
   }
 

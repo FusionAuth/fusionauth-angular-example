@@ -1,11 +1,7 @@
 <div class="form-container">
-  <mat-card class="error-card" *ngIf="showInvalidMsg">
-    <span>
-      <mat-icon class="error-icon" color="warn">error</mat-icon>
-      <span>Invalid username or password.</span>
-      <button mat-icon-button class="close-button" (click)="showInvalidMsg = !showInvalidMsg"><mat-icon>close</mat-icon></button>
-    </span>
-  </mat-card>
+  <app-error-message [(show)]="showInvalidMsg">
+    Invalid username or password.
+  </app-error-message>
 
   <form [formGroup]="mainForm">
     <mat-card>
