@@ -30,20 +30,8 @@
             <strong>invalid email</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="form-field">
-          <input matInput placeholder="Password" formControlName="password" [type]="showPassword ? 'text' : 'password'" autocomplete="new-password"/>
-          <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-          <mat-error *ngIf="mainForm.hasError('required', 'password')">
-            <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <input matInput placeholder="Confirm Password" formControlName="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'" autocomplete="new-password" [errorStateMatcher]="passwordErrorMatcher"/>
-          <mat-icon matSuffix (click)="showConfirmPassword = !showConfirmPassword">{{showConfirmPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-          <mat-error *ngIf="mainForm.hasError('passwordMismatch')">
-            <strong>passwords don't match</strong>
-          </mat-error>
-        </mat-form-field>
+        <app-password autocomplete="new-password" controlName="password" [parentForm]="mainForm" placeholder="Password"></app-password>
+        <app-password autocomplete="new-password" controlName="confirmPassword" [parentForm]="mainForm" placeholder="Confirm Password"></app-password>
       </mat-card-content>
       <mat-card-actions>
          <button mat-stroked-button class="submit-button" (click)="submit()">Submit</button>

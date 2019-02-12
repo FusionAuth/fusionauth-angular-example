@@ -61,6 +61,7 @@ export class ForgotPasswordComponent implements OnInit {
         break;
       case 422:
         this.showNoEmailMsg = true;
+        break;
       default:
         // TODO:
         // this.showOtherMsg = true;

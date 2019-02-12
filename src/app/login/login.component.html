@@ -15,13 +15,7 @@
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="form-field">
-          <input matInput placeholder="Password" formControlName="password" [type]="showPassword ? 'text' : 'password'" autocomplete="new-password"/>
-          <mat-icon matSuffix (click)="showPassword = !showPassword">{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
-          <mat-error *ngIf="mainForm.hasError('required', 'password')">
-            <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+        <app-password autocomplete="current-password" controlName="password" [parentForm]="mainForm" placeholder="Password"></app-password>
       </mat-card-content>
       <mat-card-actions>
          <button mat-stroked-button class="submit-button" (click)="submit()">Submit</button>

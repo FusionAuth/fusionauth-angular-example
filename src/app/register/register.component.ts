@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+
+import { PasswordComponent } from '../password/password.component';
 import { passwordValidator, PasswordErrorMatcher } from './register.validator';
+
 
 @Component({
   selector: 'app-register',
@@ -12,15 +15,13 @@ import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 })
 export class RegisterComponent {
   passwordErrorMatcher = new PasswordErrorMatcher();
-  showPassword = false;
-  showConfirmPassword = false;
   showMsg = false;
   mainForm = new FormGroup({
-    confirmPassword: new FormControl('', [ Validators.required ]),
+    confirmPassword: new FormControl('', PasswordComponent.validators),
     email: new FormControl('', [ Validators.required, Validators.email ]),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
-    password: new FormControl('', [ Validators.required ])
+    password: new FormControl('', PasswordComponent.validators)
   }, {
     validators: passwordValidator
   });

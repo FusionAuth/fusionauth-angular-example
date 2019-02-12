@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { PasswordComponent } from '../password/password.component';
 
 
 @Component({
@@ -35,10 +36,10 @@ export class ChangePasswordComponent implements OnInit {
 
   buildFormGroup() {
     const group: any = {};
-    group['newPassword'] = new FormControl('', [ Validators.required ]);
+    group['newPassword'] = new FormControl('', PasswordComponent.validators);
     if (this.isChangeByIdentity) {
       group['username'] = new FormControl('', [ Validators.required ]);
-      group['oldPassword'] = new FormControl('', [ Validators.required ]);
+      group['oldPassword'] = new FormControl('', PasswordComponent.validators);
     }
     this.mainForm = new FormGroup(group);
   }
@@ -79,7 +80,6 @@ export class ChangePasswordComponent implements OnInit {
         break;
       case 400:
         // TODO: How much messaging do we want to handle here?
-        // We could also write a password validator to match defaults for fusionauth
         console.log(response);
         break;
       case 404:

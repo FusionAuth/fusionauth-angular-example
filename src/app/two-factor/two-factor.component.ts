@@ -48,7 +48,7 @@ export class TwoFactorComponent implements OnInit {
 
   handleSuccess(response: HttpResponse<any>) {
     console.log(response);
-    //TODO: Save .body.user.email for change password by identity
+    // TODO: Save .body.user.email for change password by identity
     this.router.navigate(['']);
   }
 

@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TwoFactorComponent } from './two-factor/two-factor.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
+import { PasswordComponent } from './password/password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     LoginComponent,
     RegisterComponent,
     TwoFactorComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    PasswordComponent
   ],
   imports: [
     AppRoutingModule,

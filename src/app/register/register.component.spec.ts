@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { PasswordComponent } from '../password/password.component';
 import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
@@ -16,7 +17,8 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         RegisterComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        PasswordComponent
       ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,

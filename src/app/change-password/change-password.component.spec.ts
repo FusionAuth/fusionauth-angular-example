@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChangePasswordComponent } from './change-password.component';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { PasswordComponent } from '../password/password.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 
 
@@ -17,7 +18,8 @@ describe('ChangePasswordComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ChangePasswordComponent,
-        ErrorMessageComponent
+        ErrorMessageComponent,
+        PasswordComponent
       ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
