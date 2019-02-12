@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
     // TODO: Remove this before release
     this.mainForm.get('loginId').setValue('angular@fusionauth.io');
     this.mainForm.get('password').setValue('angulario');
+    //
+    this.mainForm.get('loginId').setValue('test8@testerson.com');
+    this.mainForm.get('password').setValue('password');
   }
 
   submit() {
@@ -41,22 +44,24 @@ export class LoginComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .login(this.mainForm.value)
-        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
+        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
 
-  handleFailure(error: HttpErrorResponse) {
-    this.showInvalidMsg = true;
-  }
-
-  handleSuccess(response: HttpResponse<any>) {
-    if (response.status === 203) {
-      // TODO: Create a route and update change password to respond to different routes
-      this.router.navigate(['/password/change-required', response.body.changePasswordId]);
-    } else if (response.status === 242) {
-      this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);
-    } else {
-      this.router.navigate(['']);
+  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+    switch (response.status) {
+      case 200:
+        this.router.navigate(['']);
+        break;
+      case 203:
+        // TODO: Create a route and update change password to respond to different routes
+        this.router.navigate(['/password/change', response.body.changePasswordId], { showChangeRequiredMsg: true });
+        break;
+      case 242:
+        this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);
+        break;
+      default:
+       this.showInvalidMsg = true;
     }
   }
 }

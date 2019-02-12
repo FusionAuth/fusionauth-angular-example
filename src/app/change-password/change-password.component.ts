@@ -18,18 +18,15 @@ export class ChangePasswordComponent implements OnInit {
   mainForm: FormGroup;
   showExpiredMsg: boolean;
   showInvalidMsg: boolean;
-  showNewPassword: boolean;
-  showOldPassword: boolean;
   showOtherMsg: boolean;
 
   constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
-    this.showNewPassword = false;
-    this.showOldPassword = false;
     this.resetShowMsg();
   }
 
   ngOnInit() {
     this.changePasswordId = this.route.snapshot.paramMap.get('id');
+    this.showChangeRequiredMsg = this.route.snapshot.paramMap.get('showChangeRequiredMsg') === 'true';
     this.isChangeByIdentity = !this.route.snapshot.paramMap.has('id');
     this.buildFormGroup();
   }

@@ -12,9 +12,12 @@
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" [routerLink]="['/login', { showRegistrationMsg: true }]">Login w/ registration message</a>
         <a mat-list-item color="primary" [routerLink]="['/login', { showPasswordChangeMsg: true }]">Login w/ password change message</a>
-        <a mat-list-item color="primary" routerLink="/login/two-factor/token">Two Factor</a>
+        <a mat-list-item color="primary" routerLink="/login/two-factor/token">Two Factor (with invalid token)</a>
         <a mat-list-item color="primary" routerLink="/password/forgot">Forgot Password</a>
         <a mat-list-item color="primary" routerLink="/password/change">Change Password by Identity</a>
+        <a mat-list-item color="primary" [routerLink]="['/password/change/token', { showChangeRequiredMsg: true }]">
+          Change Password w/ change required message
+        </a>
         <a mat-list-item color="primary" routerLink="/password/change/token">Reset Password (with invalid token)</a>
         <a mat-list-item color="primary" routerLink="/user/register">Sign Up</a>
       </mat-nav-list>
