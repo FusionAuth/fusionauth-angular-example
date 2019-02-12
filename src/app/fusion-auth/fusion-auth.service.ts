@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpRequestBuilder } from '../http-request-builder/http-request-builder';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ export class FusionAuthService {
   apiKey: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://fusionauth.local:9011';
-    this.apiKey = 'afQM46wknFeOLoglTmIhRuEUcl4nUugw0LasKpVCsDQ';
+    this.baseUrl = environment.fusionauth.apiUrl;
+    this.apiKey = environment.fusionauth.apiKey;
   }
 
   changePassword(changePasswordId, request) {

@@ -16,6 +16,7 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordId: string;
   isChangeByIdentity: boolean;
   mainForm: FormGroup;
+  showChangeRequiredMsg: boolean;
   showExpiredMsg: boolean;
   showInvalidMsg: boolean;
   showOtherMsg: boolean;

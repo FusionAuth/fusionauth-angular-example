@@ -1,3 +1,10 @@
 export const environment = {
-  production: true
+  production: true,
+  fusionauth: {
+    apiKey: '',
+    apiUrl: 'http://',
+    applicationId: '',
+    forgotEmailTemplateId: '',
+    verificationEmailTemplateId: ''
+  }
 };

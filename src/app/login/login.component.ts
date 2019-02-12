@@ -44,18 +44,21 @@ export class LoginComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .login(this.mainForm.value)
-        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
     }
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleFailure(error: HttpErrorResponse) {
+    this.showInvalidMsg = true;
+  }
+
+  handleSuccess(response: HttpResponse<any>) {
     switch (response.status) {
       case 200:
         this.router.navigate(['']);
         break;
       case 203:
-        // TODO: Create a route and update change password to respond to different routes
-        this.router.navigate(['/password/change', response.body.changePasswordId], { showChangeRequiredMsg: true });
+        this.router.navigate(['/password/change', response.body.changePasswordId, { showChangeRequiredMsg: true }]);
         break;
       case 242:
         this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);

@@ -4,6 +4,7 @@ import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environments/environment';
 import { PasswordComponent } from '../password/password.component';
 import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 
@@ -14,6 +15,7 @@ import { passwordValidator, PasswordErrorMatcher } from './register.validator';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  applicationId: string;
   passwordErrorMatcher = new PasswordErrorMatcher();
   showMsg = false;
   mainForm = new FormGroup({
@@ -26,7 +28,9 @@ export class RegisterComponent {
     validators: passwordValidator
   });
 
-  constructor(private fusionAuthService: FusionAuthService, private router: Router) { }
+  constructor(private fusionAuthService: FusionAuthService, private router: Router) {
+    this.applicationId = environment.fusionauth.applicationId;
+  }
 
   submit() {
     this.resetShowMsg();
@@ -34,7 +38,7 @@ export class RegisterComponent {
       this.fusionAuthService
         .register(null, {
           registration: {
-            applicationId: 'ad020c90-e0c8-4173-b914-d1409b9a5da9'
+            applicationId: this.applicationId
           },
           user: {
             email: this.mainForm.get('email').value,
@@ -51,8 +55,9 @@ export class RegisterComponent {
     this.showMsg = false;
   }
 
-
   handleFailure(error: HttpErrorResponse) {
+    // TODO: 400 with error.fieldErrors.user.email[0] =
+    //   {code: "[duplicate]user.email", message: "A User with email = [test1@testerson.com] already exists."}
     this.showMsg = true;
     console.log(error);
   }
