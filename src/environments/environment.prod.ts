@@ -3,8 +3,6 @@ export const environment = {
   fusionauth: {
     apiKey: '',
     apiUrl: 'http://',
-    applicationId: '',
-    forgotEmailTemplateId: '',
-    verificationEmailTemplateId: ''
+    applicationId: ''
   }
 };
