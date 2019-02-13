@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material';
 
 import { PasswordSentComponent } from './password-sent.component';
 
@@ -8,7 +9,8 @@ describe('PasswordSentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordSentComponent ]
+      declarations: [ PasswordSentComponent ],
+      imports: [ MatCardModule ]
     })
     .compileComponents();
   }));
