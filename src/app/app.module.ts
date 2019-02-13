@@ -24,6 +24,7 @@ import { RegisterComponent } from './register/register.component';
 import { TwoFactorComponent } from './two-factor/two-factor.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { PasswordComponent } from './password/password.component';
+import { PasswordSentComponent } from './password-sent/password-sent.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PasswordComponent } from './password/password.component';
     RegisterComponent,
     TwoFactorComponent,
     ErrorMessageComponent,
-    PasswordComponent
+    PasswordComponent,
+    PasswordSentComponent
   ],
   imports: [
     AppRoutingModule,
