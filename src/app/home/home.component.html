@@ -3,8 +3,17 @@
     <mat-card-title>FusionAuth Angular Example</mat-card-title>
     <mat-card-content>
       <mat-list>
-        <h3 mat-subheader>Status</h3>
-        <mat-list-item>Logged in/out status will eventually go here.</mat-list-item>
+        <h3 mat-subheader>User flow</h3>
+        <mat-list-item>
+          <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
+          <ng-template #LoggedIn>
+            <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
+          </ng-template>
+          <ng-template #LoggedOut>
+            <a mat-stroked-button color="primary" routerLink="/login">Login</a>
+            <a mat-stroked-button color="primary" routerLink="/user/register">Sign up</a>
+          </ng-template>
+        </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
       <mat-nav-list>

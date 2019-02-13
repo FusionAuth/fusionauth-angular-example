@@ -63,7 +63,7 @@ export class HttpRequestBuilder {
       params: this.parameters,
       reportProgress: false,
       responseType: 'json' as 'json',
-      withCredentials: false
+      withCredentials: true
     };
   }
 
@@ -121,7 +121,9 @@ export class HttpRequestBuilder {
    * @param value The value of the URL parameter, may be a string, object or number.
    */
   setUrlParameter(name, value) {
-    this.parameters = this.parameters.set(name, value);
+    if (value !== null && typeof value !== 'undefined') {
+      this.parameters = this.parameters.set(name, value);
+    }
     return this;
   }
 

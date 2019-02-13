@@ -1,11 +1,12 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { PasswordComponent } from '../password/password.component';
+import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { StorageService } from '../storage/storage.service';
 
 
 @Component({
@@ -20,14 +21,16 @@ export class LoginComponent implements OnInit {
   showPasswordChangeMsg: boolean;
   showRegistrationMsg: boolean;
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
+  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router, private storage: StorageService) {
     this.showInvalidMsg = false;
   }
 
   ngOnInit() {
     this.showRegistrationMsg = this.route.snapshot.paramMap.get('showRegistrationMsg') === 'true';
     this.showPasswordChangeMsg = this.route.snapshot.paramMap.get('showPasswordChangeMsg') === 'true';
+    const deviceId = this.storage.getDeviceId();
     this.mainForm = new FormGroup({
+      device: new FormControl(deviceId),
       password: new FormControl('', PasswordComponent.validators),
       loginId: new FormControl('', [ Validators.required ])
     });
@@ -35,11 +38,12 @@ export class LoginComponent implements OnInit {
     this.mainForm.get('loginId').setValue('angular@fusionauth.io');
     this.mainForm.get('password').setValue('angulario');
     //
-    this.mainForm.get('loginId').setValue('test8@testerson.com');
+    this.mainForm.get('loginId').setValue('test10@testerson.com');
     this.mainForm.get('password').setValue('password');
   }
 
   submit() {
+    console.log(this.mainForm.value);
     this.showInvalidMsg = false;
     if (this.mainForm.valid) {
       this.fusionAuthService
@@ -55,6 +59,9 @@ export class LoginComponent implements OnInit {
   handleSuccess(response: HttpResponse<any>) {
     switch (response.status) {
       case 200:
+        console.log(response);
+        this.storage.setRefreshToken(response.body.refreshToken);
+        this.storage.setAccessToken(response.body.token);
         this.router.navigate(['']);
         break;
       case 203:

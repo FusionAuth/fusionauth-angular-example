@@ -53,6 +53,14 @@ describe('HttpRequestBuilder', () => {
     expect(options.params.toString()).toMatch('two=due');
   });
 
+  it('should not add empty params', () => {
+    const options = builder
+      .setUrlParameter('one', null)
+      .setUrlParameter('two', undefined)
+      .getOptions();
+    expect(options.params.toString()).toEqual('');
+  });
+
   it('should not add empty uri segments', () => {
     const url = builder.setUrl('http://test.com')
       .addUriSegment('one')

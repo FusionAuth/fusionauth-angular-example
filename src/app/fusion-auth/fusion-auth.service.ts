@@ -49,6 +49,16 @@ export class FusionAuthService {
       .build();
   }
 
+  logout(globalLogout, refreshToken) {
+    return this.start()
+      .setHeader('Content-Type', 'text/plain')
+      .setUri('/api/logout')
+      .setUrlParameter('global', globalLogout)
+      .setUrlParameter('refreshToken', refreshToken)
+      .setMethod('POST')
+      .build();
+  }
+
   register(userId, request) {
     return this.start()
       .setUri('/api/user/registration')

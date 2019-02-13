@@ -9,6 +9,7 @@
       <mat-card-subtitle *ngIf="showRegistrationMsg">Your registration was successful.  Please login.</mat-card-subtitle>
       <mat-card-subtitle *ngIf="showPasswordChangeMsg">Password change was successful.  Please login.</mat-card-subtitle>
       <mat-card-content>
+        <input type="hidden" formControlName="device">
         <mat-form-field class="form-field">
           <input matInput placeholder="Username or Email" formControlName="loginId">
           <mat-error *ngIf="mainForm.hasError('required', 'loginId')">
