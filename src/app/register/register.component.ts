@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
     switch (response.status) {
       case 200:
-        //TODO: Can we detect if verification is required?  Then message with email sent or send them to login.
+        // TODO: Can we detect if verification is required?  Then message with email sent or send them to login.
         this.router.navigate(['/login', { showRegistrationMsg: true }]);
         break;
       case 400:

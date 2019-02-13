@@ -20,7 +20,12 @@ export class LoginComponent implements OnInit {
   showPasswordChangeMsg: boolean;
   showRegistrationMsg: boolean;
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router, private storage: StorageService) {
+  constructor(
+    private fusionAuthService: FusionAuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private storage: StorageService
+  ) {
     this.showInvalidMsg = false;
   }
 

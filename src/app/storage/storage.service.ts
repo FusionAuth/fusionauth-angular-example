@@ -15,7 +15,7 @@ export class StorageService {
 
   private makeDeviceId() {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let deviceId = [];
+    const deviceId = [];
     for (let index = 32; index ; index--) {
       deviceId.push(alphabet[Math.floor(Math.random() * 62)]);
     }

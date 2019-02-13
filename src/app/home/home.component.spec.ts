@@ -5,7 +5,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { HomeComponent } from './home.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { StorageService } from '../storage/storage.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

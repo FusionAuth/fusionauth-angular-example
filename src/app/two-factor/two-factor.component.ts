@@ -14,7 +14,7 @@ export class TwoFactorComponent implements OnInit {
   showExpiredMsg: boolean;
   showInvalidCodeMsg: boolean;
   twoFactorId: string;
-  mainForm: FormGroup
+  mainForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
   }

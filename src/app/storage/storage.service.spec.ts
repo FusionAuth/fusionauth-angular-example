@@ -5,7 +5,7 @@ import { StorageService } from './storage.service';
 describe('StorageService', () => {
   beforeEach(() => {
     localStorage.clear();
-    TestBed.configureTestingModule({})
+    TestBed.configureTestingModule({});
   });
 
   it('should be created', () => {
