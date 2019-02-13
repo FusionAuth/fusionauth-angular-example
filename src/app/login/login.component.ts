@@ -11,8 +11,7 @@ import { StorageService } from '../storage/storage.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 
 export class LoginComponent implements OnInit {
@@ -34,16 +33,9 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', PasswordComponent.validators),
       loginId: new FormControl('', [ Validators.required ])
     });
-    // TODO: Remove this before release
-    this.mainForm.get('loginId').setValue('angular@fusionauth.io');
-    this.mainForm.get('password').setValue('angulario');
-    //
-    this.mainForm.get('loginId').setValue('test10@testerson.com');
-    this.mainForm.get('password').setValue('password');
   }
 
   submit() {
-    console.log(this.mainForm.value);
     this.showInvalidMsg = false;
     if (this.mainForm.valid) {
       this.fusionAuthService
@@ -59,7 +51,6 @@ export class LoginComponent implements OnInit {
   handleSuccess(response: HttpResponse<any>) {
     switch (response.status) {
       case 200:
-        console.log(response);
         this.storage.setRefreshToken(response.body.refreshToken);
         this.storage.setAccessToken(response.body.token);
         this.router.navigate(['']);

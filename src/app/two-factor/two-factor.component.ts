@@ -8,48 +8,44 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-two-factor',
-  templateUrl: './two-factor.component.html',
-  styleUrls: ['./two-factor.component.css']
+  templateUrl: './two-factor.component.html'
 })
 export class TwoFactorComponent implements OnInit {
   showExpiredMsg: boolean;
   showInvalidCodeMsg: boolean;
   twoFactorId: string;
-  mainForm = new FormGroup({
-    code: new FormControl('', [ Validators.required ]),
-    trustComputer: new FormControl(''),
-    twoFactorId: new FormControl('')
-  });
+  mainForm: FormGroup
 
   constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
   }
 
   ngOnInit() {
     const twoFactorId = this.route.snapshot.paramMap.get('id');
-    this.mainForm.get('twoFactorId').setValue(twoFactorId);
+    this.mainForm = new FormGroup({
+      code: new FormControl('', [ Validators.required ]),
+      trustComputer: new FormControl(''),
+      twoFactorId: new FormControl(twoFactorId)
+    });
   }
 
   submit() {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .twoFactorLogin(this.mainForm.value)
-        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
+        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
 
-  handleFailure(error: HttpErrorResponse) {
-    console.log(error);
-    if (error.status === 404) {
-      this.showExpiredMsg = true;
-    } else if (error.status === 421) {
-      this.showInvalidCodeMsg = true;
+  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+    switch (response.status) {
+      case 200:
+        this.router.navigate(['']);
+        break;
+      case 404:
+        this.showExpiredMsg = true;
+        break;
+      case 421:
+        this.showInvalidCodeMsg = true;
     }
   }
-
-  handleSuccess(response: HttpResponse<any>) {
-    console.log(response);
-    // TODO: Save .body.user.email for change password by identity
-    this.router.navigate(['']);
-  }
-
 }

@@ -9,8 +9,7 @@ import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
 
 @Component({
   selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  templateUrl: './forgot-password.component.html'
 })
 
 export class ForgotPasswordComponent implements OnInit {
@@ -25,19 +24,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.mainForm = new FormGroup({
-      username: new FormControl('', [ Validators.required ])
+      loginId: new FormControl('', [ Validators.required ])
     });
-    // TODO: Remove before release
-    this.mainForm.get('username').setValue('angular@fusionauth.io');
   }
 
   submit() {
     this.resetShowMsg();
     if (this.mainForm.valid) {
       this.fusionAuthService
-        .forgotPassword({
-          'loginId': this.mainForm.get('username').value
-        })
+        .forgotPassword(this.mainForm.value)
         .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }

@@ -9,8 +9,7 @@ import { PasswordComponent } from '../password/password.component';
 
 @Component({
   selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordId: string;
@@ -75,10 +74,6 @@ export class ChangePasswordComponent implements OnInit {
     switch (response.status) {
       case 200:
         this.router.navigate(['/login', { showPasswordChangeMsg: true }]);
-        break;
-      case 400:
-        // TODO: How much messaging do we want to handle here?
-        console.log(response);
         break;
       case 404:
         if (this.isChangeByIdentity) {
