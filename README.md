@@ -43,3 +43,20 @@ use an invalid token get a 404
 
 <!-- ## Email verification after registration/sign-up -->
 <!-- Enable verify on system level, then check email is verified.  If you want to enforce email verification you can set env flag requireEmailVerification. -->
+
+# Tips, Tricks, and Hacks
+
+## Autopopulate fields for testing
+If you get tired of typing in emails and passwords you can hard code in the `FormControl` values that you know will work.  For example,
+```
+this.mainForm = new FormGroup({
+  ...
+  password: new FormControl('password', PasswordComponent.validators),
+  loginId: new FormControl('email@domain.com', [ Validators.required ])
+  ...
+});
+```
+Also, on during the various scenarios where you are sending emails (e.g. registration) and you are using gmail (e.g. valid_email@gmail.com) you can create a user with a valid email like so:
+```
+email: new FormControl('valid_email+t' + Date.now() + '@gmail.com', ...)
+```

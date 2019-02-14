@@ -27,11 +27,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.passwordErrorMatcher = new PasswordErrorMatcher();
     this.mainForm = new FormGroup({
-      confirmPassword: new FormControl('', PasswordComponent.validators),
-      email: new FormControl('', [ Validators.required, Validators.email ]),
+      confirmPassword: new FormControl('password', PasswordComponent.validators),
+      email: new FormControl('brett+t' + Date.now() + '@fusionauth.io', [ Validators.required, Validators.email ]),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
-      password: new FormControl('', PasswordComponent.validators)
+      password: new FormControl('password', PasswordComponent.validators)
     }, {
       validators: passwordValidator
     });
@@ -60,8 +60,11 @@ export class RegisterComponent implements OnInit {
   handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
     switch (response.status) {
       case 200:
-        // TODO: Can we detect if verification is required?  Then message with email sent or send them to login.
-        this.router.navigate(['/login', { showRegistrationMsg: true }]);
+        if ((response as HttpResponse<any>).body.user.verified) {
+          this.router.navigate(['/login', { showRegistrationMsg: true }]);
+        } else {
+          this.router.navigate(['/verify/sent'])
+        }
         break;
       case 400:
         // TODO: Handle 400 with error.fieldErrors.user.email[0] =

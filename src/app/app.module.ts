@@ -11,7 +11,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
-  MatSelectModule
+  MatProgressSpinnerModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -25,6 +26,8 @@ import { TwoFactorComponent } from './two-factor/two-factor.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { PasswordComponent } from './password/password.component';
 import { PasswordSentComponent } from './password-sent/password-sent.component';
+import { VerifyEmailSentComponent } from './verify-email-sent/verify-email-sent.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { PasswordSentComponent } from './password-sent/password-sent.component';
     TwoFactorComponent,
     ErrorMessageComponent,
     PasswordComponent,
-    PasswordSentComponent
+    PasswordSentComponent,
+    VerifyEmailSentComponent,
+    VerifyEmailComponent
   ],
   imports: [
     AppRoutingModule,
@@ -52,6 +57,7 @@ import { PasswordSentComponent } from './password-sent/password-sent.component';
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule
   ],

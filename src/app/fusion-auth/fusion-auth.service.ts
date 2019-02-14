@@ -68,10 +68,27 @@ export class FusionAuthService {
       .build();
   }
 
+  resendEmailVerification(email) {
+    return this.start()
+      .setUri('/api/user/verify-email')
+      .setUrlParameter('email', email)
+      .setMethod('PUT')
+      .build();
+  }
+
   twoFactorLogin(request) {
     return this.start()
       .setUri('/api/two-factor/login')
       .setJsonBody(request)
+      .setMethod('POST')
+      .build();
+  }
+
+  verifyEmail(verificationId) {
+    return this.start()
+      .setHeader('Content-Type', 'text/plain')
+      .setUri('/api/user/verify-email')
+      .addUriSegment(verificationId)
       .setMethod('POST')
       .build();
   }

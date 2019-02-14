@@ -8,8 +8,11 @@ import { LoginComponent } from './login/login.component';
 import { PasswordSentComponent } from './password-sent/password-sent.component';
 import { RegisterComponent } from './register/register.component';
 import { TwoFactorComponent } from './two-factor/two-factor.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { VerifyEmailSentComponent } from './verify-email-sent/verify-email-sent.component';
 
 const routes: Routes = [
+  { path: 'email/verify/:id', component: VerifyEmailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/two-factor/:id', component: TwoFactorComponent },
   { path: 'password/change', component: ChangePasswordComponent },
@@ -17,6 +20,7 @@ const routes: Routes = [
   { path: 'password/forgot', component: ForgotPasswordComponent },
   { path: 'password/sent', component: PasswordSentComponent },
   { path: 'user/register', component: RegisterComponent },
+  { path: 'verify/sent', component: VerifyEmailSentComponent },
   { path: '**', component: HomeComponent }
 ];
 
