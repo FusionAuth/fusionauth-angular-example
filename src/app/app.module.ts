@@ -12,7 +12,7 @@ import {
   MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
-  MatSelectModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';

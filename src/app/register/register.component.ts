@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
@@ -14,13 +13,15 @@ import { passwordValidator, PasswordErrorMatcher } from './register.validator';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
+  apiUrl: string;
   applicationId: string;
+  mainForm: FormGroup;
   passwordErrorMatcher: PasswordErrorMatcher;
   showDuplicateMsg: boolean;
-  mainForm: FormGroup;
 
-  constructor(private fusionAuthService: FusionAuthService, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.applicationId = environment.fusionauth.applicationId;
+    this.apiUrl = environment.registration.apiUrl;
     this.showDuplicateMsg = false;
   }
 
@@ -42,13 +43,14 @@ export class RegisterComponent implements OnInit {
     if (this.mainForm.valid) {
       const user = this.mainForm.value;
       delete user.confirmPassword;
-      this.fusionAuthService
-        .register(null, {
-          registration: {
-            applicationId: this.applicationId
-          },
-          user: user
-        })
+      const json = {
+        registration: {
+          applicationId: this.applicationId
+        },
+        user: user
+      };
+      this.http
+        .post(this.apiUrl + '/user/registration', json, { observe: 'response' })
         .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
@@ -63,7 +65,7 @@ export class RegisterComponent implements OnInit {
         if ((response as HttpResponse<any>).body.user.verified) {
           this.router.navigate(['/login', { showRegistrationMsg: true }]);
         } else {
-          this.router.navigate(['/verify/sent'])
+          this.router.navigate(['/verify/sent']);
         }
         break;
       case 400:

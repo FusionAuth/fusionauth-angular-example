@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
-import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+
 
 @Component({
   selector: 'app-verify-email',
@@ -40,7 +40,6 @@ export class VerifyEmailComponent implements OnInit {
       case 404:
         this.verificationStatus = 'invalidToken';
         this.showInvalidMsg = true;
-      default:
         break;
     }
   }

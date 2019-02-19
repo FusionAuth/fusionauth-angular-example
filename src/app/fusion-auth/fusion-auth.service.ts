@@ -9,11 +9,9 @@ import { environment } from '../../environments/environment';
 })
 export class FusionAuthService {
   baseUrl: string;
-  apiKey: string;
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.fusionauth.apiUrl;
-    this.apiKey = environment.fusionauth.apiKey;
   }
 
   changePassword(changePasswordId, request) {
@@ -95,7 +93,6 @@ export class FusionAuthService {
 
   private start() {
     return new HttpRequestBuilder(this.http)
-      .setHeader('Authorization', this.apiKey)
       .setUrl(this.baseUrl);
   }
 }

@@ -24,6 +24,14 @@ Also, all the usual angular commands should be error free:
 
 However at this point `ng e2e` tests have not been implemented.
 
+## The Example App
+There are two sections...
+
+
+## Setting up FusionAuth
+There are various user flows that you might want to configure.
+* Email - If you have an SMTP server you can enable email which will allow users to follow the forgot password and email varification steps.
+* Email Verification - In FusionAuth
 
 ## Email templates
 Log in to FusionAuth and edit each of the email templates (verification, setup, and forgot) and change `localhost:9011` to `localhost:4200`.  In the Setup Password template you can also change `/password/change` to `/password/setup`.  In this example app that will give you some additional info that you are seting up your password for the first time.
