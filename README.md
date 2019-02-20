@@ -56,6 +56,9 @@ On the Two Factor Authorization page:
 * Error 404: The token has expired and the user will need to login again.
 * Error 421: The authorization code was incorrect.
 
+On the Change Password page:
+* Error 404: The token has expired and the user will need to login again.
+
 #### Forgot password
 ![](images/FusionAuth%20Angular%20Example-Forgot%20Password.png)
 
@@ -64,7 +67,8 @@ On the Forgot Password page:
 * Error 404: Invalid username or email.
 * Error 422: The user does not have an email address.  Log in to FusionAuth and create a user with a username, but no email.
 
-For the Reset Password page see [Change Password] errors.
+For the Reset Password page:
+* Error 404: The token has expired and the user will need to resend the Forgot Password email.
 
 #### Sign Up
 ![](images/FusionAuth%20Angular%20Example-Sign%20Up.png)
