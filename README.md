@@ -18,14 +18,14 @@ For this example there will be three `localhost` servers running:
 * `localhost:3000` -- A lightweight node server that handles requests that require an API key
 * `localhost:4200` -- The Angular example app
 
-```console
-$ git clone https://github.com/fusionauth/fusionauth-angular-example
-$ cd fusionauth-angular-example/angular
-angular $ npm install
-angular $ ng serve
-angular $ cd ../server
-server $ npm install
-server $ node server.js
+```
+git clone https://github.com/fusionauth/fusionauth-angular-example
+cd fusionauth-angular-example/angular
+npm install
+ng serve
+cd ../server
+npm install
+node server.js
 ```
 
 
