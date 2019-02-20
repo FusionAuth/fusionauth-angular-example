@@ -39,12 +39,12 @@ Log in to FusionAuth and edit each of the email templates (Email Verification, S
 ## The Example App
 There are a few FusionAuth configuration options that will effect the user workflows.  They are listed below as well as highlighted in the flow charts.
 
-- With email turned off both the Forgot Password and Email Verification flows will not be enabled.
-- If Email Verification is turned off the user's email will automatically be marked as valid and the Sign Up flow will go straight to the login page.
+- With email turned off both the Forgot Password and Email Verification workflows will not be enabled.
+- If Email Verification is turned off the user's email will automatically be marked as valid and the Sign Up workflow will go straight to the login page.
 - If two factor authentication is enabled for a user then there will be an additional step during login.
 
 ### Workflows
-The flow charts below reflect an error free flow with various conditionals.  Below each workflow any error messages that can appear are described.
+The flow charts below reflect an error free workflow with various conditionals.  Below each workflow any error messages that can appear are described.
 
 #### Log In/Out
 ![](images/FusionAuth%20Angular%20Example-Log%20in-Log%20out.png)
@@ -56,15 +56,16 @@ The flow charts below reflect an error free flow with various conditionals.  Bel
 * Error 404: Invalid username or email.
 * Error 422: The user does not have an email address.  Log in to FusionAuth and create a user with a username, but no email.
 
-#### Change / Reset password
-Error cases:
-in by identity enter a invalid user or a valid user and incorrect current password to get a 404
-use an invalid token get a 404
+#### Sign Up
+![](images/FusionAuth%20Angular%20Example-Sign%20Up.png)
+Note that in the Angular example the only way to get to the Email Verified page is to complete the workflow using a valid token that you recieve in email.
+* Error 400: A user with that username or email already exists
+
+<!-- #### Change / Reset password -->
+<!-- Error cases: -->
+<!-- in by identity enter a invalid user or a valid user and incorrect current password to get a 404 -->
+<!-- use an invalid token get a 404 -->
 <!-- enter an invalid (e.g. 'pass' which is too short) password to get a 400 is no longer possible with email validations -->
-
-
-<!-- ## Email verification after registration/sign-up -->
-<!-- Enable verify on system level, then check email is verified.  If you want to enforce email verification you can set env flag requireEmailVerification. -->
 
 
 # Tips, Tricks, and Hacks
