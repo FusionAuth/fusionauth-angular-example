@@ -64,6 +64,7 @@ export class VerifyEmailComponent implements OnInit {
         this.router.navigate(['/verify/sent']);
         break;
       default:
+        //TODO: Do we need to have any other error messages here?  Note that invalid email isn't return by FA.
         this.showResendErrorMsg = true;
         break;
     }

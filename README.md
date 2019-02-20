@@ -48,18 +48,30 @@ The flow charts below reflect an error free workflow with various conditionals. 
 
 #### Log In/Out
 ![](images/FusionAuth%20Angular%20Example-Log%20in-Log%20out.png)
+On the Login page:
 * Error 404: The user was not found or the password was incorrect.
+On the Two Factor Authorization page:
+* Error 404: The token has expired and the user will need to login again.
+* Error 421: The authorization code was incorrect.
 
 #### Forgot password
 ![](images/FusionAuth%20Angular%20Example-Forgot%20Password.png)
+On the Forgot Password page:
 * Error 403: The forgot password functionality has been disabled.  With email disabled in FusionAuth entering a valid email in the form will cause this error.
 * Error 404: Invalid username or email.
 * Error 422: The user does not have an email address.  Log in to FusionAuth and create a user with a username, but no email.
+For the Reset Password page see [Change Password] errors.
 
 #### Sign Up
 ![](images/FusionAuth%20Angular%20Example-Sign%20Up.png)
-Note that in the Angular example the only way to get to the Email Verified page is to complete the workflow using a valid token that you recieve in email.
+> *Note that in the Angular example the only way to get to the Email Verified page is to complete the workflow using a valid token that you recieve in email.*
+
+On the Sign Up page:
 * Error 400: A user with that username or email already exists
+On the Resend Verification Email page:
+* Error 404: The token is invalid and the user will need to resend the verification email.
+
+#### Change Password
 
 <!-- #### Change / Reset password -->
 <!-- Error cases: -->
