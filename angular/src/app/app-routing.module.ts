@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'password/change', component: ChangePasswordComponent },
   { path: 'password/change/:id', component: ChangePasswordComponent },
   { path: 'password/forgot', component: ForgotPasswordComponent },
+  //TODO: password setup?
   { path: 'password/sent', component: PasswordSentComponent },
   { path: 'user/register', component: RegisterComponent },
   { path: 'verify/sent', component: VerifyEmailSentComponent },

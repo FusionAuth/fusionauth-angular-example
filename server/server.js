@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const express = require('express');
 const http = require('http');
+const config = require ('./config/config.json');
 
 const app = express();
 const port = 3000;
@@ -13,15 +14,17 @@ app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+console.log(config);
+
 app.post('/user/registration', (angularRequest, angularResponse) => {
   const options = {
-    host: 'localhost',
-    port: '9011',
+    host: config.host,
+    port: config.port,
     path: '/api/user/registration',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'afQM46wknFeOLoglTmIhRuEUcl4nUugw0LasKpVCsDQ'
+      'Authorization': config.apiKey
     }
   };
   const body = angularRequest.body;
