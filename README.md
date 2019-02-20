@@ -45,8 +45,8 @@ There are a few FusionAuth configuration options that will effect the user workf
 - If two factor authentication is enabled for a user then there will be an additional step during login.
 
 ### Workflows
-Log In/Out
-[Log In/Out](images/FusionAuth\ Angular\ Example-Log\ in-Log\ out.png
+#### Log In/Out
+![](images/FusionAuth%20Angular%20Example-Log%20in-Log%20out.png)
 
 
 ## Change / Reset password
