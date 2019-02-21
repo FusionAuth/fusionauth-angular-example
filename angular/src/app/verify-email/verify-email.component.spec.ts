@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ErrorMessageComponent } from '../error-message/error-message.component';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 import { VerifyEmailComponent } from './verify-email.component';
 
 class MockFusionAuthService {

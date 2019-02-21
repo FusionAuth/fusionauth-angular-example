@@ -5,8 +5,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { PasswordComponent } from '../password/password.component';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
-import { StorageService } from '../storage/storage.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
+import { StorageService } from '../shared/storage/storage.service';
 
 
 @Component({

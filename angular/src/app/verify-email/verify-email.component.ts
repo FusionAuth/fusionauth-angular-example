@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 
 
 @Component({

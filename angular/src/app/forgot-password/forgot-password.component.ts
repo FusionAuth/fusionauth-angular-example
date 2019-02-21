@@ -4,7 +4,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 
 
 @Component({
