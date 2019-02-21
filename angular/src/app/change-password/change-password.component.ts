@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
-import { PasswordComponent } from '../password/password.component';
+import { PasswordComponent } from '../components/password/password.component';
 
 
 @Component({

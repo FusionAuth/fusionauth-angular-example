@@ -4,7 +4,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { AngularExampleService } from '../shared/angular-example/angular-example.service';
-import { PasswordComponent } from '../password/password.component';
+import { PasswordComponent } from '../components/password/password.component';
 import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 
 

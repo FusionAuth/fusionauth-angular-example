@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { ErrorMessageComponent } from '../components/error-message/error-message.component';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 
