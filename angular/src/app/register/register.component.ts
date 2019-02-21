@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { environment } from '../../environments/environment';
+import { AngularExampleService } from '../shared/angular-example/angular-example.service';
 import { PasswordComponent } from '../password/password.component';
 import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 
@@ -13,15 +13,11 @@ import { passwordValidator, PasswordErrorMatcher } from './register.validator';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
-  apiUrl: string;
-  applicationId: string;
   mainForm: FormGroup;
   passwordErrorMatcher: PasswordErrorMatcher;
   showDuplicateMsg: boolean;
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.applicationId = environment.fusionauth.applicationId;
-    this.apiUrl = environment.registration.apiUrl;
+  constructor(private angularExampleService: AngularExampleService, private router: Router) {
     this.showDuplicateMsg = false;
   }
 
@@ -43,14 +39,8 @@ export class RegisterComponent implements OnInit {
     if (this.mainForm.valid) {
       const user = this.mainForm.value;
       delete user.confirmPassword;
-      const json = {
-        registration: {
-          applicationId: this.applicationId
-        },
-        user: user
-      };
-      this.http
-        .post(this.apiUrl + '/user/registration', json, { observe: 'response' })
+      this.angularExampleService
+        .register(user)
         .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }

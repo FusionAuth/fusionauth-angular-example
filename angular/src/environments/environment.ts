@@ -4,7 +4,7 @@ export const environment = {
     apiUrl: 'http://localhost:9011',
     applicationId: 'ad020c90-e0c8-4173-b914-d1409b9a5da9'
   },
-  registration: {
+  angularExample: {
     apiUrl: 'http://localhost:3000'
   }
 };

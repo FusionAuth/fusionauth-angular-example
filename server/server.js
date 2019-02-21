@@ -6,27 +6,26 @@ const config = require ('./config/config.json');
 
 const app = express();
 const port = 3000;
+const options = {
+  host: config.host,
+  port: config.port,
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': config.apiKey
+  }
+};
 
-// Cross-Origin Resource Sharing
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-console.log(config);
-
-app.post('/user/registration', (angularRequest, angularResponse) => {
-  const options = {
-    host: config.host,
-    port: config.port,
-    path: '/api/user/registration',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': config.apiKey
-    }
-  };
+app.post('/api/user/registration', (angularRequest, angularResponse) => {
+  options.path = '/api/user/registration';
   const body = angularRequest.body;
   const filteredBody = JSON.stringify({
     registration: {
