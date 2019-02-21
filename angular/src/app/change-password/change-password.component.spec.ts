@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ChangePasswordComponent } from './change-password.component';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { PasswordComponent } from '../password/password.component';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 
 
 describe('ChangePasswordComponent', () => {

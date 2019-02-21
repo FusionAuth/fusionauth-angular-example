@@ -5,7 +5,7 @@ import { MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, Ma
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ErrorMessageComponent } from '../error-message/error-message.component';
-import { FusionAuthService } from '../fusion-auth/fusion-auth.service';
+import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 import { TwoFactorComponent } from './two-factor.component';
 
 
