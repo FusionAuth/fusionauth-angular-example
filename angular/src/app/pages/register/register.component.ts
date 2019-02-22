@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
-        if (response.body.user.verified) {
+        if ((response as HttpResponse<any>).body.user.verified) {
           this.router.navigate(['/login', { showRegistrationMsg: true }]);
         } else {
           this.router.navigate(['/verify/sent']);

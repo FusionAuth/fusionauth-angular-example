@@ -50,16 +50,17 @@ export class LoginComponent implements OnInit {
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
+    const body = (response as HttpResponse<any>).body;
     switch (response.status) {
       case 200:
-        this.storage.setAccessToken(response.body.token);
+        this.storage.setAccessToken(body.token);
         this.router.navigate(['']);
         break;
       case 203:
-        this.router.navigate(['/password/change', response.body.changePasswordId, { showChangeRequiredMsg: true }]);
+        this.router.navigate(['/password/change', body.changePasswordId, { showChangeRequiredMsg: true }]);
         break;
       case 242:
-        this.router.navigate(['/login/two-factor', response.body.twoFactorId ]);
+        this.router.navigate(['/login/two-factor', body.twoFactorId ]);
         break;
       default:
        this.showInvalidMsg = true;
