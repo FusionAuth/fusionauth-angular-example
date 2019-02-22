@@ -8,7 +8,7 @@ import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 import { VerifyEmailComponent } from './verify-email.component';
 
 class MockFusionAuthService {
-  verifyEmail(verificationId) {
+  verifyRegistration(verificationId) {
     return this;
   }
 

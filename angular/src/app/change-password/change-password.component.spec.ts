@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { AngularExampleService } from '../shared/angular-example/angular-example.service';
 import { ChangePasswordComponent } from './change-password.component';
 import { ErrorMessageComponent } from '../components/error-message/error-message.component';
 import { PasswordComponent } from '../components/password/password.component';
@@ -27,7 +28,8 @@ describe('ChangePasswordComponent', () => {
         RouterTestingModule.withRoutes([{ path: 'password/change/:id', component: ChangePasswordComponent }])
       ],
       providers:    [
-        { provide: FusionAuthService, useValue: null }
+        { provide: FusionAuthService, useValue: null },
+        { provide: AngularExampleService, useValue: null }
       ]
     })
     .compileComponents();

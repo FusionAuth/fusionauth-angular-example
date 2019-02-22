@@ -8,9 +8,12 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class FusionAuthService {
+  applicationId: string;
   baseUrl: string;
 
   constructor(private http: HttpClient) {
+    // TODO: add appId to methods below
+    this.applicationId = environment.fusionauth.applicationId;
     this.baseUrl = environment.fusionauth.apiUrl;
   }
 
@@ -18,14 +21,6 @@ export class FusionAuthService {
     return this.start()
       .setUri('/api/user/change-password')
       .addUriSegment(changePasswordId)
-      .setJsonBody(request)
-      .setMethod('POST')
-      .build();
-  }
-
-  changePasswordByIdentity(request) {
-    return this.start()
-      .setUri('/api/user/change-password')
       .setJsonBody(request)
       .setMethod('POST')
       .build();
@@ -40,6 +35,7 @@ export class FusionAuthService {
   }
 
   login(request) {
+    request.applicationId = this.applicationId;
     return this.start()
       .setUri('/api/login')
       .setJsonBody(request)
@@ -57,19 +53,11 @@ export class FusionAuthService {
       .build();
   }
 
-  register(userId, request) {
+  resendRegistrationVerification(email) {
     return this.start()
-      .setUri('/api/user/registration')
-      .addUriSegment(userId)
-      .setJsonBody(request)
-      .setMethod('POST')
-      .build();
-  }
-
-  resendEmailVerification(email) {
-    return this.start()
-      .setUri('/api/user/verify-email')
+      .setUri('/api/user/verify-registration')
       .setUrlParameter('email', email)
+      .setUrlParameter('applicationId', this.applicationId)
       .setMethod('PUT')
       .build();
   }
@@ -82,10 +70,10 @@ export class FusionAuthService {
       .build();
   }
 
-  verifyEmail(verificationId) {
+  verifyRegistration(verificationId) {
     return this.start()
       .setHeader('Content-Type', 'text/plain')
-      .setUri('/api/user/verify-email')
+      .setUri('/api/user/verify-registration')
       .addUriSegment(verificationId)
       .setMethod('POST')
       .build();

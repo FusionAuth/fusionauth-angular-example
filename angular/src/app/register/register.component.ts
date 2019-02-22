@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { AngularExampleService } from '../shared/angular-example/angular-example.service';
 import { PasswordComponent } from '../components/password/password.component';
-import { passwordValidator, PasswordErrorMatcher } from './register.validator';
+import { passwordMatchValidator } from '../components/password/password-match.validator';
 
 
 @Component({
@@ -14,7 +14,6 @@ import { passwordValidator, PasswordErrorMatcher } from './register.validator';
 })
 export class RegisterComponent implements OnInit {
   mainForm: FormGroup;
-  passwordErrorMatcher: PasswordErrorMatcher;
   showDuplicateMsg: boolean;
 
   constructor(private angularExampleService: AngularExampleService, private router: Router) {
@@ -22,15 +21,14 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.passwordErrorMatcher = new PasswordErrorMatcher();
     this.mainForm = new FormGroup({
-      confirmPassword: new FormControl('password', PasswordComponent.validators),
+      confirmPassword: new FormControl('password'),
       email: new FormControl('brett+t' + Date.now() + '@fusionauth.io', [ Validators.required, Validators.email ]),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
       password: new FormControl('password', PasswordComponent.validators)
     }, {
-      validators: passwordValidator
+      validators: passwordMatchValidator
     });
   }
 

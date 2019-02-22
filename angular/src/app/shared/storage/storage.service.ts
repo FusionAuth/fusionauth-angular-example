@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StorageService {
-
-
   constructor() {
     if (this.getDeviceId() === null) {
       const deviceId = this.makeDeviceId();
@@ -30,20 +28,12 @@ export class StorageService {
     return this.getItem('accessToken');
   }
 
-  getRefreshToken() {
-    return this.getItem('refreshToken');
-  }
-
   private getItem(item: string) {
     return localStorage.getItem('fusionauth.' + item);
   }
 
   setAccessToken(value: string) {
     this.setItem('accessToken', value);
-  }
-
-  setRefreshToken(value: string) {
-    this.setItem('refreshToken', value);
   }
 
   private setItem(key: string, value: string) {

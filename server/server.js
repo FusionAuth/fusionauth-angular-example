@@ -2,7 +2,8 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const express = require('express');
 const http = require('http');
-const config = require ('./config/config.json');
+const config = require('./config/config.json');
+const changePassword = require('./routes/change-password');
 
 const app = express();
 const port = 3000;
@@ -39,17 +40,19 @@ app.post('/api/user/registration', (angularRequest, angularResponse) => {
     }
   });
   const fusionauthRequest = http.request(options, (fusionauthResponse) => {
-      var responseString = '';
-      fusionauthResponse.on('data', function (data) {
-        responseString += data;
-      });
-      fusionauthResponse.on('end', function () {
-        angularResponse.status(fusionauthResponse.statusCode).send(responseString);
-      });
+    var responseString = '';
+    fusionauthResponse.on('data', function (data) {
+      responseString += data;
+    });
+    fusionauthResponse.on('end', function () {
+      angularResponse.status(fusionauthResponse.statusCode).send(responseString);
+    });
   });
   fusionauthRequest.write(filteredBody);
   fusionauthRequest.end();
 });
+
+app.post('/api/user/change-password', changePassword.changePassword());
 
 app.listen(port, (err) => {
   if (err) {

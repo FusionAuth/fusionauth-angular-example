@@ -4,10 +4,11 @@
     <mat-card-content>
       <mat-list>
         <h3 mat-subheader>Basic User flow</h3>
-        <mat-list-item>
+        <mat-list-item class="basic-flow">
           <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
           <ng-template #LoggedIn>
             <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
+            <a mat-stroked-button color="primary" routerLink="/password/change">Change Password</a>
           </ng-template>
           <ng-template #LoggedOut>
             <a mat-stroked-button color="primary" routerLink="/login">Login</a>
@@ -62,7 +63,7 @@
           Verify Email (with invalid token)
         </a>
         <a mat-list-item color="primary" routerLink="/password/change">
-          Change Password by Identity
+          Change Password (with user logged in)
         </a>
       </mat-nav-list>
     </mat-card-content>

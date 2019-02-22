@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
   handleSuccess(response: HttpResponse<any>) {
     switch (response.status) {
       case 200:
-        this.storage.setRefreshToken(response.body.refreshToken);
         this.storage.setAccessToken(response.body.token);
         this.router.navigate(['']);
         break;

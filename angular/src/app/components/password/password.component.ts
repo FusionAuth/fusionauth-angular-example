@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
+import { PasswordMatchErrorMatcher } from '../password/password-match.validator';
 
 @Component({
   selector: 'app-password',
@@ -12,9 +13,11 @@ export class PasswordComponent {
   @Input() controlName: string;
   @Input() parentForm: FormGroup;
   @Input() placeholder: string;
+  errorMatcher: PasswordMatchErrorMatcher;
   showPassword: boolean;
 
   constructor() {
     this.showPassword = false;
+    this.errorMatcher = new PasswordMatchErrorMatcher();
   }
 }

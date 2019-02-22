@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { HttpRequestBuilder } from '../http-request-builder/http-request-builder';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,13 @@ export class AngularExampleService {
   applicationId: string;
   baseUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storage: StorageService) {
     this.applicationId = environment.fusionauth.applicationId;
     this.baseUrl = environment.angularExample.apiUrl;
   }
 
-  changePassword(changePasswordId, request) {
+  changePassword(request) {
+    request.accessToken = this.storage.getAccessToken();
     return this.start()
       .setUri('/api/user/change-password')
       .setJsonBody(request)

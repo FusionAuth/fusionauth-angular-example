@@ -14,9 +14,7 @@ html, body, .mat-app-background {
 }
 
 .form-container, .home-container {
-/*  display: flex;
-  flex-direction: column;
-*/  width: 33%;
+  width: 33%;
   margin: 40px auto;
 }
 
@@ -41,4 +39,8 @@ html, body, .mat-app-background {
 
 .close-button {
   margin-left: auto !important;
+}
+
+.basic-flow button, .basic-flow a {
+  margin-right: 20px;
 }

@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
 
   handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
     this.storage.setAccessToken(null);
-    this.storage.setRefreshToken(null);
     this.isLoggedIn = false;
   }
 }

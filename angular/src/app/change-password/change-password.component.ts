@@ -4,86 +4,114 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
+import { AngularExampleService } from '../shared/angular-example/angular-example.service';
 import { PasswordComponent } from '../components/password/password.component';
+import { passwordMatchValidator } from '../components/password/password-match.validator';
 
+
+enum ChangeType {
+  UserRequested,
+  ForgotPassword,
+  ChangeRequired
+};
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
-  changePasswordId: string;
-  isChangeByIdentity: boolean;
-  mainForm: FormGroup;
-  showChangeRequiredMsg: boolean;
-  showExpiredMsg: boolean;
-  showInvalidMsg: boolean;
-  showOtherMsg: boolean;
+  ChangeType = ChangeType;
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
+  changePasswordId: string;
+  changeType: ChangeType;
+  mainForm: FormGroup;
+  showForgotTokenExpiredMsg: boolean;
+  showLoginAgainMsg: boolean;
+
+  constructor(
+    private angularExampleService: AngularExampleService,
+    private fusionAuthService: FusionAuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.resetShowMsg();
   }
 
   ngOnInit() {
     this.changePasswordId = this.route.snapshot.paramMap.get('id');
-    this.showChangeRequiredMsg = this.route.snapshot.paramMap.get('showChangeRequiredMsg') === 'true';
-    this.isChangeByIdentity = !this.route.snapshot.paramMap.has('id');
+    this.setChangeType();
     this.buildFormGroup();
+  }
+
+  setChangeType() {
+    if (this.route.snapshot.paramMap.get('showChangeRequiredMsg') === 'true') {
+      this.changeType = ChangeType.ChangeRequired;
+    } else if (this.route.snapshot.paramMap.has('id')) {
+      this.changeType = ChangeType.ForgotPassword;
+    } else {
+      this.changeType = ChangeType.UserRequested;
+    }
   }
 
   buildFormGroup() {
     const group: any = {};
-    group['newPassword'] = new FormControl('', PasswordComponent.validators);
-    if (this.isChangeByIdentity) {
-      group['username'] = new FormControl('', [ Validators.required ]);
-      group['oldPassword'] = new FormControl('', PasswordComponent.validators);
+    const options: any = {};
+    if (this.changeType === ChangeType.UserRequested) {
+      group['currentPassword'] = new FormControl('', PasswordComponent.validators);
+      options['validators'] = passwordMatchValidator;
     }
-    this.mainForm = new FormGroup(group);
+    group['password'] = new FormControl('', PasswordComponent.validators);
+    group['confirmPassword'] = new FormControl('');
+    this.mainForm = new FormGroup(group, options);
   }
 
   submit() {
     this.resetShowMsg();
     if (this.mainForm.valid) {
-      const password = this.mainForm.get('newPassword').value;
-      let request;
       let httpRequest;
-      if (this.isChangeByIdentity) {
-        request = {
-          password: password,
-          currentPassword: this.mainForm.get('oldPassword').value,
-          loginId: this.mainForm.get('username').value
-        };
-        httpRequest = this.fusionAuthService.changePasswordByIdentity(request);
+      const request = this.mainForm.value;
+      delete request.confirmPassword;
+      if (this.changeType === ChangeType.UserRequested) {
+        httpRequest = this.angularExampleService.changePassword(request);
       } else {
-        request = {
-          password: password
-        };
         httpRequest = this.fusionAuthService.changePassword(this.changePasswordId, request);
       }
       httpRequest.subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
     }
   }
 
-  private resetShowMsg() {
-    this.showInvalidMsg = false;
-    this.showExpiredMsg = false;
-    this.showOtherMsg = false;
+  resetShowMsg() {
+    this.showForgotTokenExpiredMsg = false;
+    this.showLoginAgainMsg = false;
   }
 
   handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
     switch (response.status) {
       case 200:
-        this.router.navigate(['/login', { showPasswordChangeMsg: true }]);
+        this.navigateOnSuccess();
         break;
       case 404:
-        if (this.isChangeByIdentity) {
-          this.showInvalidMsg = true;
-        } else {
-          this.showExpiredMsg = true;
+        if (this.changeType === ChangeType.ForgotPassword) {
+          this.showForgotTokenExpiredMsg = true;
         }
-        break;
+        // Fall through
       default:
-        this.showOtherMsg = true;
+        this.showLoginAgainMsg = true;
     }
+  }
+
+  navigateOnSuccess() {
+    if (this.changeType !== ChangeType.ForgotPassword) {
+      this.fusionAuthService
+        .login(this.mainForm.get('password'))
+        .subscribe((r) => this.handleRelogin(r), (r) => this.handleRelogin(r));
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  handleRelogin(response: HttpErrorResponse | HttpResponse<any>) {
+    const options = (this.changeType === ChangeType.ChangeRequired) ? { showPasswordChangeMsg: true } : {};
+    this.router.navigate(['', options]);
   }
 }
