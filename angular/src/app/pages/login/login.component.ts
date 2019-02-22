@@ -45,15 +45,11 @@ export class LoginComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .login(this.mainForm.value)
-        .subscribe((e) => this.handleSuccess(e), (r) => this.handleFailure(r));
+        .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
-  handleFailure(error: HttpErrorResponse) {
-    this.showInvalidMsg = true;
-  }
-
-  handleSuccess(response: HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.storage.setAccessToken(response.body.token);

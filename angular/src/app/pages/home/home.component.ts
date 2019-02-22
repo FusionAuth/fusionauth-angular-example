@@ -20,10 +20,10 @@ export class HomeComponent implements OnInit {
   logout() {
     this.fusionAuthService
       .logout(null, null)
-      .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+      .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     this.storage.setAccessToken(null);
     this.isLoggedIn = false;
   }

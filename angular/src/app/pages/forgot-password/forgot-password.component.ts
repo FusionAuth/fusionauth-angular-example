@@ -33,7 +33,7 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .forgotPassword(this.mainForm.value)
-        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+        .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
@@ -43,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.showNoEmailMsg = false;
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.router.navigate(['/password/sent']);
@@ -58,8 +58,8 @@ export class ForgotPasswordComponent implements OnInit {
         this.showNoEmailMsg = true;
         break;
       default:
-        // TODO:
-        // this.showOtherMsg = true;
+        this.showInvalidMsg = true;
+        break;
     }
   }
 }

@@ -29,10 +29,10 @@ export class VerifyEmailComponent implements OnInit {
     const verificationId = this.route.snapshot.paramMap.get('id');
     this.fusionAuthService
       .verifyRegistration(verificationId)
-      .subscribe((e) => this.handleVerifyResponse(e), (r) => this.handleVerifyResponse(r));
+      .subscribe((r) => this.handleVerifyResponse(r), (e) => this.handleVerifyResponse(e));
   }
 
-  handleVerifyResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleVerifyResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.verificationStatus = 'emailVerified';
@@ -49,7 +49,7 @@ export class VerifyEmailComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .resendRegistrationVerification(this.mainForm.value.email)
-        .subscribe((e) => this.handleResendResponse(e), (r) => this.handleResendResponse(r));
+        .subscribe((r) => this.handleResendResponse(r), (e) => this.handleResendResponse(e));
     }
   }
 
@@ -58,13 +58,12 @@ export class VerifyEmailComponent implements OnInit {
     this.showResendErrorMsg = false;
   }
 
-  handleResendResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResendResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.router.navigate(['/verify/sent']);
         break;
       default:
-        // TODO: Do we need to have any other error messages here?  Note that invalid email isn't return by FA.
         this.showResendErrorMsg = true;
         break;
     }

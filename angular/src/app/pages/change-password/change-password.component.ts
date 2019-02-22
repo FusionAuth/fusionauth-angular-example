@@ -76,7 +76,7 @@ export class ChangePasswordComponent implements OnInit {
       } else {
         httpRequest = this.fusionAuthService.changePassword(this.changePasswordId, request);
       }
-      httpRequest.subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+      httpRequest.subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
@@ -85,7 +85,7 @@ export class ChangePasswordComponent implements OnInit {
     this.showLoginAgainMsg = false;
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.navigateOnSuccess();
@@ -104,13 +104,13 @@ export class ChangePasswordComponent implements OnInit {
     if (this.changeType !== ChangeType.ForgotPassword) {
       this.fusionAuthService
         .login(this.mainForm.get('password'))
-        .subscribe((r) => this.handleRelogin(r), (r) => this.handleRelogin(r));
+        .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
     } else {
       this.router.navigate(['/login']);
     }
   }
 
-  handleRelogin(response: HttpErrorResponse | HttpResponse<any>) {
+  handleRelogin(response: HttpResponse<any> | HttpErrorResponse) {
     const options = (this.changeType === ChangeType.ChangeRequired) ? { showPasswordChangeMsg: true } : {};
     this.router.navigate(['', options]);
   }

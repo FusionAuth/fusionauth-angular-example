@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       delete user.confirmPassword;
       this.angularExampleService
         .register(user)
-        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+        .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
@@ -47,10 +47,10 @@ export class RegisterComponent implements OnInit {
     this.showDuplicateMsg = false;
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
-        if ((response as HttpResponse<any>).body.user.verified) {
+        if (response.body.user.verified) {
           this.router.navigate(['/login', { showRegistrationMsg: true }]);
         } else {
           this.router.navigate(['/verify/sent']);

@@ -32,11 +32,11 @@ export class TwoFactorComponent implements OnInit {
     if (this.mainForm.valid) {
       this.fusionAuthService
         .twoFactorLogin(this.mainForm.value)
-        .subscribe((e) => this.handleResponse(e), (r) => this.handleResponse(r));
+        .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
-  handleResponse(response: HttpErrorResponse | HttpResponse<any>) {
+  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.router.navigate(['']);
