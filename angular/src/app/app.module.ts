@@ -17,17 +17,17 @@ import {
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { TwoFactorComponent } from './two-factor/two-factor.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { TwoFactorComponent } from './pages/two-factor/two-factor.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { PasswordComponent } from './components/password/password.component';
-import { PasswordSentComponent } from './password-sent/password-sent.component';
-import { VerifyEmailSentComponent } from './verify-email-sent/verify-email-sent.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { PasswordSentComponent } from './pages/password-sent/password-sent.component';
+import { VerifyEmailSentComponent } from './pages/verify-email-sent/verify-email-sent.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [

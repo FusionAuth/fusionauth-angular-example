@@ -4,28 +4,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ErrorMessageComponent } from '../components/error-message/error-message.component';
-import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
-import { PasswordComponent } from '../components/password/password.component';
-import { LoginComponent } from './login.component';
+import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
+import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+
+describe('ForgotPasswordComponent', () => {
+  let component: ForgotPasswordComponent;
+  let fixture: ComponentFixture<ForgotPasswordComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LoginComponent,
-        ErrorMessageComponent,
-        PasswordComponent
+        ForgotPasswordComponent,
+        ErrorMessageComponent
       ],
       imports: [
         BrowserAnimationsModule, MatCardModule, MatIconModule, MatInputModule,
-        MatFormFieldModule, FormsModule, ReactiveFormsModule,
-        RouterTestingModule
+        MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterTestingModule
       ],
-      providers: [
+      providers:    [
         { provide: FusionAuthService, useValue: null }
       ]
     })
@@ -33,7 +31,7 @@ describe('LoginComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

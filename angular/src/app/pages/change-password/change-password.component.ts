@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
-import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
-import { AngularExampleService } from '../shared/angular-example/angular-example.service';
-import { PasswordComponent } from '../components/password/password.component';
-import { passwordMatchValidator } from '../components/password/password-match.validator';
+import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
+import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
+import { PasswordComponent } from '../../components/password/password.component';
+import { passwordMatchValidator } from '../../components/password/password-match.validator';
 
 
 enum ChangeType {

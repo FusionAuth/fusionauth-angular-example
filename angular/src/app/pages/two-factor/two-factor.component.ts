@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FusionAuthService } from '../shared/fusion-auth/fusion-auth.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
+import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 
 @Component({
   selector: 'app-two-factor',
