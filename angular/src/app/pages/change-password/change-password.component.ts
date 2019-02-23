@@ -7,6 +7,7 @@ import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service'
 import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { PasswordComponent } from '../../components/password/password.component';
 import { passwordMatchValidator } from '../../components/password/password-match.validator';
+import { StorageService } from '../../shared/storage/storage.service';
 
 
 enum ChangeType {
@@ -32,7 +33,8 @@ export class ChangePasswordComponent implements OnInit {
     private angularExampleService: AngularExampleService,
     private fusionAuthService: FusionAuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private storage: StorageService
   ) {
     this.resetShowMsg();
   }
@@ -58,11 +60,10 @@ export class ChangePasswordComponent implements OnInit {
     const options: any = {};
     if (this.changeType === ChangeType.UserRequested) {
       group['currentPassword'] = new FormControl('', PasswordComponent.validators);
-      options['validators'] = passwordMatchValidator;
     }
     group['password'] = new FormControl('', PasswordComponent.validators);
     group['confirmPassword'] = new FormControl('');
-    this.mainForm = new FormGroup(group, options);
+    this.mainForm = new FormGroup(group, { validators: passwordMatchValidator });
   }
 
   submit() {
@@ -93,8 +94,10 @@ export class ChangePasswordComponent implements OnInit {
       case 404:
         if (this.changeType === ChangeType.ForgotPassword) {
           this.showForgotTokenExpiredMsg = true;
+        } else {
+          this.showLoginAgainMsg = true;
         }
-        // Fall through
+        break;
       default:
         this.showLoginAgainMsg = true;
     }
@@ -102,16 +105,35 @@ export class ChangePasswordComponent implements OnInit {
 
   navigateOnSuccess() {
     if (this.changeType !== ChangeType.ForgotPassword) {
+      // TODO: This is a hack! Eventually we will have a OTP and will not need email to relogin.
+      const request = {
+        device: this.storage.getDeviceId(),
+        loginId: localStorage.getItem('fusionauth.loginId'),
+        password: this.mainForm.get('password').value
+      };
+      // TODO: END
       this.fusionAuthService
-        .login(this.mainForm.get('password'))
+        .login(request)
         .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login', { showPasswordChangeMsg: true }]);
     }
   }
 
   handleRelogin(response: HttpResponse<any> | HttpErrorResponse) {
-    const options = (this.changeType === ChangeType.ChangeRequired) ? { showPasswordChangeMsg: true } : {};
-    this.router.navigate(['', options]);
+    const body = (response as HttpResponse<any>).body;
+    switch (response.status) {
+      case 200:
+        this.storage.setAccessToken(body.token);
+        this.router.navigate(['']);
+        break;
+      case 242:
+        this.router.navigate(['/login/two-factor', body.twoFactorId ]);
+        break;
+      default:
+        // TODO: Once 242 is gone and OTP works, should we add a message that something went wrong?
+        this.router.navigate(['/login']);
+    }
+
   }
 }

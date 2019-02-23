@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
+import { StorageService } from '../../shared/storage/storage.service';
 
 @Component({
   selector: 'app-two-factor',
@@ -16,12 +17,18 @@ export class TwoFactorComponent implements OnInit {
   twoFactorId: string;
   mainForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private fusionAuthService: FusionAuthService,
+    private router: Router,
+    private storage: StorageService
+  ) { }
 
   ngOnInit() {
     const twoFactorId = this.route.snapshot.paramMap.get('id');
+    const deviceId = this.storage.getDeviceId();
     this.mainForm = new FormGroup({
+      device: new FormControl(deviceId),
       code: new FormControl('', [ Validators.required ]),
       trustComputer: new FormControl(''),
       twoFactorId: new FormControl(twoFactorId)
@@ -39,6 +46,8 @@ export class TwoFactorComponent implements OnInit {
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
+        const body = (response as HttpResponse<any>).body;
+        this.storage.setAccessToken(body.token);
         this.router.navigate(['']);
         break;
       case 404:

@@ -24,6 +24,10 @@ export class StorageService {
     return this.getItem('deviceId');
   }
 
+  getEmail() {
+    return this.getItem('email');
+  }
+
   getAccessToken() {
     return this.getItem('accessToken');
   }
@@ -33,7 +37,11 @@ export class StorageService {
   }
 
   setAccessToken(value: string) {
-    this.setItem('accessToken', value);
+    return this.setItem('accessToken', value);
+  }
+
+  setEmail(value: string) {
+    return this.setItem('email', value);
   }
 
   private setItem(key: string, value: string) {
@@ -43,5 +51,6 @@ export class StorageService {
     } else {
       localStorage.removeItem(fullKey);
     }
+    return this;
   }
 }

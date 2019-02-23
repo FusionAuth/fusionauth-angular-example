@@ -1,12 +1,6 @@
 const config = require ('../config/config.json');
 const http = require('http');
 
-module.exports = {
-  changePassword: () => {
-    return verifyAccessToken;
-  }
-}
-
 const verifyAccessToken = (incomingRequest, outgoingResponse) => {
   const body = incomingRequest.body;
   const options = {
@@ -65,4 +59,8 @@ const callFusionAuthChangePassword = (outgoingResponse, body) => {
   });
   fusionAuthRequest.write(filteredBody);
   fusionAuthRequest.end();
+}
+
+module.exports = {
+  changePassword: verifyAccessToken
 }
