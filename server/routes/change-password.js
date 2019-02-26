@@ -17,7 +17,6 @@ const verifyAccessToken = (incomingRequest, outgoingResponse) => {
       responseString += data;
     });
     verifyResponse.on('end', function () {
-      console.log(verifyResponse.statusCode);
       if (verifyResponse.statusCode === 200) {
         const data = JSON.parse(responseString);
         body.loginId = data.jwt.email;
@@ -46,14 +45,12 @@ const callFusionAuthChangePassword = (outgoingResponse, body) => {
     loginId: body.loginId,
     password: body.password
   });
-  console.log('   ', filteredBody);
   const fusionAuthRequest = http.request(options, (fusionAuthResponse) => {
     var responseString = '';
     fusionAuthResponse.on('data', function (data) {
       responseString += data;
     });
     fusionAuthResponse.on('end', function () {
-      console.log(fusionAuthResponse.statusCode, responseString);
       outgoingResponse.status(fusionAuthResponse.statusCode).send(responseString);
     });
   });

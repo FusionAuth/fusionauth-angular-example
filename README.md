@@ -90,6 +90,27 @@ On the Resend Verification Email page:
 <!-- use an invalid token get a 404 -->
 <!-- enter an invalid (e.g. 'pass' which is too short) password to get a 400 is no longer possible with email validations -->
 
+## Adding username to the Sign Up page
+You will need to add `username` several places:
+
+* In `server/routes/register-user.js` add `username` the `user` object:
+```
+  user: {
+    ...
+    username: body.user.username
+  }
+```
+
+* In `angular/src/app/pages/register/register.component.ts` add a new `FormControl`:
+```
+  new FormGroup({
+    ...
+    username: new FormControl('', [ Validators.required ])
+  });
+```
+
+* In `angular/src/app/pages/register/register.component.html` there is already a form field for username that is commented out.  Remove the surrounding `<!-- -->`.
+
 
 # Tips, Tricks, and Hacks
 
@@ -103,7 +124,7 @@ this.mainForm = new FormGroup({
   ...
 });
 ```
-Also, on during the various scenarios where you are sending emails (e.g. registration) and you are using gmail (e.g. valid_email@gmail.com) you can create a user with a valid email like so:
+Also, during the various scenarios where you are sending emails (e.g. registration) and you are using gmail (e.g. valid_email@gmail.com) you can create a user with a valid email like so:
 ```
 email: new FormControl('valid_email+t' + Date.now() + '@gmail.com', ...)
 ```

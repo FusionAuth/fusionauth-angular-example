@@ -21,6 +21,12 @@
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
+        <!-- <mat-form-field class="form-field">
+          <input matInput placeholder="Username" formControlName="username">
+          <mat-error *ngIf="mainForm.hasError('required', 'username')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field> -->
         <mat-form-field class="form-field">
           <input matInput placeholder="Email" formControlName="email">
           <mat-error *ngIf="mainForm.hasError('required', 'email')">

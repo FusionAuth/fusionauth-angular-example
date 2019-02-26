@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
     this.resetShowMsg();
     if (this.mainForm.valid) {
       const user = this.mainForm.value;
-      delete user.confirmPassword;
       this.angularExampleService
         .register(user)
         .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
