@@ -36,7 +36,6 @@ export class FusionAuthService {
 
   login(request) {
     request.applicationId = this.applicationId;
-    console.log(request);
     return this.start()
       .setUri('/api/login')
       .setJsonBody(request)
@@ -65,7 +64,6 @@ export class FusionAuthService {
 
   twoFactorLogin(request) {
     request.applicationId = this.applicationId;
-    console.log(request);
     return this.start()
       .setUri('/api/two-factor/login')
       .setJsonBody(request)
