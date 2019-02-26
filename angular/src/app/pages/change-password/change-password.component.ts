@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
@@ -14,7 +14,7 @@ enum ChangeType {
   UserRequested,
   ForgotPassword,
   ChangeRequired
-};
+}
 
 @Component({
   selector: 'app-change-password',
@@ -57,7 +57,6 @@ export class ChangePasswordComponent implements OnInit {
 
   buildFormGroup() {
     const group: any = {};
-    const options: any = {};
     if (this.changeType === ChangeType.UserRequested) {
       group['currentPassword'] = new FormControl('', PasswordComponent.validators);
     }
