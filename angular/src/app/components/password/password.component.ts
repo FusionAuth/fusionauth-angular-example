@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
+
 import { PasswordMatchErrorMatcher } from '../password/password-match.validator';
+
 
 @Component({
   selector: 'app-password',

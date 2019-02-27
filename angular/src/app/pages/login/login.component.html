@@ -2,6 +2,9 @@
   <app-error-message [(show)]="showInvalidMsg">
     Invalid username, email, or password.
   </app-error-message>
+  <app-error-message [(show)]="showNotAuthorizedMsg">
+    You are not authorized to use this application.  Please contact your admin.
+  </app-error-message>
 
   <form [formGroup]="mainForm">
     <mat-card>

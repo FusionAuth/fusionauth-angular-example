@@ -7,6 +7,7 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 import { VerifyEmailComponent } from './verify-email.component';
 
+
 class MockFusionAuthService {
   verifyRegistration(verificationId) {
     return this;

@@ -11,14 +11,16 @@ import { TwoFactorComponent } from './pages/two-factor/two-factor.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { VerifyEmailSentComponent } from './pages/verify-email-sent/verify-email-sent.component';
 
+
 const routes: Routes = [
   { path: 'email/verify/:id', component: VerifyEmailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/two-factor/:id', component: TwoFactorComponent },
   { path: 'password/change', component: ChangePasswordComponent },
   { path: 'password/change/:id', component: ChangePasswordComponent },
+  { path: 'password/change-required/:id', component: ChangePasswordComponent },
   { path: 'password/forgot', component: ForgotPasswordComponent },
-  // TODO: password setup?
+  { path: 'password/setup/:id', component: ChangePasswordComponent },
   { path: 'password/sent', component: PasswordSentComponent },
   { path: 'user/register', component: RegisterComponent },
   { path: 'verify/sent', component: VerifyEmailSentComponent },

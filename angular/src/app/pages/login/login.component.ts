@@ -17,6 +17,7 @@ import { StorageService } from '../../shared/storage/storage.service';
 export class LoginComponent implements OnInit {
   mainForm: FormGroup;
   showInvalidMsg: boolean;
+  showNotAuthorizedMsg: boolean;
   showPasswordChangeMsg: boolean;
   showRegistrationMsg: boolean;
 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private storage: StorageService
   ) {
-    this.showInvalidMsg = false;
+    this.resetShowMsg();
   }
 
   ngOnInit() {
@@ -41,12 +42,17 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.showInvalidMsg = false;
+    this.resetShowMsg();
     if (this.mainForm.valid) {
       this.fusionAuthService
         .login(this.mainForm.value)
         .subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
+  }
+
+  resetShowMsg() {
+    this.showInvalidMsg = false;
+    this.showNotAuthorizedMsg = false;
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
@@ -60,8 +66,11 @@ export class LoginComponent implements OnInit {
         this.storage.setAccessToken(body.token);
         this.router.navigate(['']);
         break;
+      case 202:
+        this.showNotAuthorizedMsg = true;
+        break;
       case 203:
-        this.router.navigate(['/password/change', body.changePasswordId, { showChangeRequiredMsg: true }]);
+        this.router.navigate(['/password/change-required', body.changePasswordId]);
         break;
       case 242:
         this.router.navigate(['/login/two-factor', body.twoFactorId ]);

@@ -13,7 +13,8 @@ import { StorageService } from '../../shared/storage/storage.service';
 enum ChangeType {
   UserRequested,
   ForgotPassword,
-  ChangeRequired
+  ChangeRequired,
+  SetupPassword
 }
 
 @Component({
@@ -26,7 +27,7 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordId: string;
   changeType: ChangeType;
   mainForm: FormGroup;
-  showForgotTokenExpiredMsg: boolean;
+  show404ErrogMsg: boolean;
   showLoginAgainMsg: boolean;
 
   constructor(
@@ -46,8 +47,11 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   setChangeType() {
-    if (this.route.snapshot.paramMap.get('showChangeRequiredMsg') === 'true') {
+    const subRoute = this.route.snapshot.url[1].toString();
+    if (subRoute === 'change-required') {
       this.changeType = ChangeType.ChangeRequired;
+    } else if (subRoute === 'setup') {
+      this.changeType = ChangeType.SetupPassword;
     } else if (this.route.snapshot.paramMap.has('id')) {
       this.changeType = ChangeType.ForgotPassword;
     } else {
@@ -58,10 +62,10 @@ export class ChangePasswordComponent implements OnInit {
   buildFormGroup() {
     const group: any = {};
     if (this.changeType === ChangeType.UserRequested) {
-      group['currentPassword'] = new FormControl('', PasswordComponent.validators);
+      group['currentPassword'] = new FormControl('password', PasswordComponent.validators);
     }
-    group['password'] = new FormControl('', PasswordComponent.validators);
-    group['confirmPassword'] = new FormControl('');
+    group['password'] = new FormControl('password', PasswordComponent.validators);
+    group['confirmPassword'] = new FormControl('password');
     this.mainForm = new FormGroup(group, { validators: passwordMatchValidator });
   }
 
@@ -81,7 +85,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   resetShowMsg() {
-    this.showForgotTokenExpiredMsg = false;
+    this.show404ErrogMsg = false;
     this.showLoginAgainMsg = false;
   }
 
@@ -91,11 +95,7 @@ export class ChangePasswordComponent implements OnInit {
         this.navigateOnSuccess();
         break;
       case 404:
-        if (this.changeType === ChangeType.ForgotPassword) {
-          this.showForgotTokenExpiredMsg = true;
-        } else {
-          this.showLoginAgainMsg = true;
-        }
+        this.show404ErrogMsg = true;
         break;
       default:
         this.showLoginAgainMsg = true;
@@ -103,7 +103,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   navigateOnSuccess() {
-    if (this.changeType !== ChangeType.ForgotPassword) {
+    if (this.changeType === ChangeType.UserRequested) {
       // TODO: This is a hack! Eventually we will have a OTP and will not need email to relogin.
       const request = {
         device: this.storage.getDeviceId(),
@@ -115,7 +115,8 @@ export class ChangePasswordComponent implements OnInit {
         .login(request)
         .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
     } else {
-      this.router.navigate(['/login', { showPasswordChangeMsg: true }]);
+      const options = (this.changeType === ChangeType.SetupPassword) ? { showPasswordSetupMsg: true } : { showPasswordChangeMsg: true };
+      this.router.navigate(['/login', options]);
     }
   }
 
@@ -130,8 +131,7 @@ export class ChangePasswordComponent implements OnInit {
         this.router.navigate(['/login/two-factor', body.twoFactorId ]);
         break;
       default:
-        // TODO: Once 242 is gone and OTP works, should we add a message that something went wrong?
-        this.router.navigate(['/login']);
+        this.showLoginAgainMsg = true;
     }
 
   }

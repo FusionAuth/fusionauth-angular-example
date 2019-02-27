@@ -17,7 +17,7 @@
         </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
-      <mat-nav-list>
+      <mat-nav-list dense>
         <h3 mat-subheader>Quick Links</h3>
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" routerLink="/login/two-factor/token">
@@ -37,7 +37,7 @@
           <mat-icon matListIcon>arrow_right_alt</mat-icon>
           Reset Password (with invalid token)
         </a>
-        <a mat-list-item color="primary" [routerLink]="['/password/change/token', { showChangeRequiredMsg: true }]">
+        <a mat-list-item color="primary" [routerLink]="['/password/change-required/token']">
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Change Password w/ change required message
         </a>
@@ -64,6 +64,11 @@
         </a>
         <a mat-list-item color="primary" routerLink="/password/change">
           Change Password (with user logged in)
+        </a>
+        <a mat-list-item color="primary" routerLink="/password/setup/token">
+          <mat-icon matListIcon>email</mat-icon>
+          <mat-icon matListIcon>arrow_right_alt</mat-icon>
+          Setup Password (with invalid token)
         </a>
       </mat-nav-list>
     </mat-card-content>

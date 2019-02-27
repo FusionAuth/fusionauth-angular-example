@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material';
 
 import { PasswordSentComponent } from './password-sent.component';
 
+
 describe('PasswordSentComponent', () => {
   let component: PasswordSentComponent;
   let fixture: ComponentFixture<PasswordSentComponent>;

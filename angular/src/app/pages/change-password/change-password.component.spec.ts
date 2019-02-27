@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { ChangePasswordComponent } from './change-password.component';
@@ -27,7 +28,19 @@ describe('ChangePasswordComponent', () => {
         MatFormFieldModule, FormsModule, ReactiveFormsModule,
         RouterTestingModule.withRoutes([{ path: 'password/change/:id', component: ChangePasswordComponent }])
       ],
-      providers:    [
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: (key) => 'id',
+                has: (key) => true
+              },
+              url: ['password', 'change', 'token']
+            }
+          }
+        },
         { provide: FusionAuthService, useValue: null },
         { provide: AngularExampleService, useValue: null }
       ]
@@ -36,6 +49,8 @@ describe('ChangePasswordComponent', () => {
   }));
 
   beforeEach(() => {
+    // const route = TestBed.get(ActivatedRoute);
+    // route.url.value[0].path = '/password/change/token';
     fixture = TestBed.createComponent(ChangePasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

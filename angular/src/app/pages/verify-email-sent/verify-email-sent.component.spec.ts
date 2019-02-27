@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material';
 
 import { VerifyEmailSentComponent } from './verify-email-sent.component';
 
+
 describe('VerifyEmailSentComponent', () => {
   let component: VerifyEmailSentComponent;
   let fixture: ComponentFixture<VerifyEmailSentComponent>;

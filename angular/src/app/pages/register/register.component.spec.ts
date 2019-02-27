@@ -10,6 +10,7 @@ import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service'
 import { PasswordComponent } from '../../components/password/password.component';
 import { RegisterComponent } from './register.component';
 
+
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;

@@ -5,6 +5,7 @@ import { MatCardModule, MatIconModule, MatInputModule, MatFormFieldModule } from
 
 import { PasswordComponent } from './password.component';
 
+
 describe('PasswordComponent', () => {
   let component: PasswordComponent;
   let fixture: ComponentFixture<PasswordComponent>;

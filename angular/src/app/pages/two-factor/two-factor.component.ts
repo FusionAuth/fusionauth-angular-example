@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 import { StorageService } from '../../shared/storage/storage.service';
 
+
 @Component({
   selector: 'app-two-factor',
   templateUrl: './two-factor.component.html'
