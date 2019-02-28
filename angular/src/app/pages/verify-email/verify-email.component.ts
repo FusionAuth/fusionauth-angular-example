@@ -36,7 +36,7 @@ export class VerifyEmailComponent implements OnInit {
     });
     const verificationId = this.route.snapshot.paramMap.get('id');
     this.fusionAuthService
-      .verifyRegistration(verificationId)
+      .verifyEmail(verificationId)
       .subscribe((r) => this.handleVerifyResponse(r), (e) => this.handleVerifyResponse(e));
   }
 
@@ -56,7 +56,7 @@ export class VerifyEmailComponent implements OnInit {
     this.resetMsg();
     if (this.mainForm.valid) {
       this.fusionAuthService
-        .resendRegistrationVerification(this.mainForm.value.email)
+        .resendEmailVerification(this.mainForm.value.email)
         .subscribe((r) => this.handleResendResponse(r), (e) => this.handleResendResponse(e));
     }
   }

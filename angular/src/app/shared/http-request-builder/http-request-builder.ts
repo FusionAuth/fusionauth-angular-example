@@ -13,8 +13,15 @@
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
  */
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpParameterCodec } from '@angular/common/http';
 
+
+class HttpSimpleEncodingCodec implements HttpParameterCodec {
+  encodeKey(key: string): string { return encodeURIComponent(key); }
+  encodeValue(value: string): string { return encodeURIComponent(value); }
+  decodeKey(key: string): string { return decodeURIComponent(key); }
+  decodeValue(value: string) { return decodeURIComponent(value); }
+}
 
 export class HttpRequestBuilder {
   private body: object;
@@ -26,7 +33,7 @@ export class HttpRequestBuilder {
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders();
-    this.parameters = new HttpParams();
+    this.parameters = new HttpParams({ encoder: new HttpSimpleEncodingCodec() });
   }
 
   /**

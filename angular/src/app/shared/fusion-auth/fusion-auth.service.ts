@@ -54,11 +54,10 @@ export class FusionAuthService {
       .build();
   }
 
-  resendRegistrationVerification(email) {
+  resendEmailVerification(email) {
     return this.start()
-      .setUri('/api/user/verify-registration')
+      .setUri('/api/user/verify-email')
       .setUrlParameter('email', email)
-      .setUrlParameter('applicationId', this.applicationId)
       .setMethod('PUT')
       .build();
   }
@@ -72,10 +71,10 @@ export class FusionAuthService {
       .build();
   }
 
-  verifyRegistration(verificationId) {
+  verifyEmail(verificationId) {
     return this.start()
       .setHeader('Content-Type', 'text/plain')
-      .setUri('/api/user/verify-registration')
+      .setUri('/api/user/verify-email')
       .addUriSegment(verificationId)
       .setMethod('POST')
       .build();

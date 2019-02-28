@@ -9,7 +9,7 @@ import { VerifyEmailComponent } from './verify-email.component';
 
 
 class MockFusionAuthService {
-  verifyRegistration(verificationId) {
+  verifyEmail(verificationId) {
     return this;
   }
 
