@@ -23,10 +23,6 @@ html, body, .mat-app-background {
   padding: 10px;
 }
 
-.home-container .mat-divider {
-  margin: 12px 0;
-}
-
 .home-container .scrollable {
   height: 300px;
   overflow: auto;
