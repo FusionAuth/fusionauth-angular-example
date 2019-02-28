@@ -1,8 +1,8 @@
 <div class="home-container">
-  <mat-card class="home-card">
+  <mat-card>
     <mat-card-title>FusionAuth Angular Example</mat-card-title>
     <mat-card-content>
-      <h3 mat-subheader>Basic User flow</h3>
+      <h4 mat-subheader>Basic User flow</h4>
       <mat-list>
         <mat-list-item class="basic-flow">
           <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
@@ -17,7 +17,7 @@
         </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
-      <h3 mat-subheader>Quick Links</h3>
+      <h4 mat-subheader>Quick Links</h4>
       <mat-nav-list dense class="scrollable">
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" routerLink="/login/two-factor/token">

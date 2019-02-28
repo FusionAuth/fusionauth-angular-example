@@ -22,11 +22,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.mainForm = new FormGroup({
-      confirmPassword: new FormControl('password'),
-      email: new FormControl('brett+t' + Date.now() + '@fusionauth.io', [ Validators.required, Validators.email ]),
+      confirmPassword: new FormControl(''),
+      email: new FormControl('', [ Validators.required, Validators.email ]),
       firstName: new FormControl(''),
       lastName: new FormControl(''),
-      password: new FormControl('password', PasswordComponent.validators)
+      password: new FormControl('', PasswordComponent.validators)
     }, {
       validators: passwordMatchValidator
     });

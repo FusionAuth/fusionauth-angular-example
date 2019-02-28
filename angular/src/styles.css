@@ -18,6 +18,20 @@ html, body, .mat-app-background {
   margin: 40px auto;
 }
 
+.home-container h4 {
+  margin: 0;
+  padding: 10px;
+}
+
+.home-container .mat-divider {
+  margin: 12px 0;
+}
+
+.home-container .scrollable {
+  height: 300px;
+  overflow: auto;
+}
+
 .form-field {
   width: 100%;
 }

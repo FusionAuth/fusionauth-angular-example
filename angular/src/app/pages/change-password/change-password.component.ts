@@ -62,10 +62,10 @@ export class ChangePasswordComponent implements OnInit {
   buildFormGroup() {
     const group: any = {};
     if (this.changeType === ChangeType.UserRequested) {
-      group['currentPassword'] = new FormControl('password', PasswordComponent.validators);
+      group['currentPassword'] = new FormControl('', PasswordComponent.validators);
     }
-    group['password'] = new FormControl('password', PasswordComponent.validators);
-    group['confirmPassword'] = new FormControl('password');
+    group['password'] = new FormControl('', PasswordComponent.validators);
+    group['confirmPassword'] = new FormControl('');
     this.mainForm = new FormGroup(group, { validators: passwordMatchValidator });
   }
 
