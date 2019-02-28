@@ -1,16 +1,17 @@
 <div class="form-container">
-  <app-error-message [(show)]="showInvalidMsg">
+  <app-error-message [(show)]="showErrorInvalidLogin">
     Invalid username, email, or password.
   </app-error-message>
-  <app-error-message [(show)]="showNotAuthorizedMsg">
+  <app-error-message [(show)]="showErrorNotAuthorized">
     You are not authorized to use this application.  Please contact your admin.
   </app-error-message>
 
   <form [formGroup]="mainForm">
     <mat-card>
       <mat-card-title>Login</mat-card-title>
-      <mat-card-subtitle *ngIf="showRegistrationMsg">Your registration was successful.  Please login.</mat-card-subtitle>
-      <mat-card-subtitle *ngIf="showPasswordChangeMsg">Password change was successful.  Please login.</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="showMessagePasswordChange">Password change was successful.  Please login.</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="showMessagePasswordSetup">Password setup was successful.  Please login.</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="showMessageRegistration">Your registration was successful.  Please login.</mat-card-subtitle>
       <mat-card-content>
         <input type="hidden" formControlName="device">
         <mat-form-field class="form-field">

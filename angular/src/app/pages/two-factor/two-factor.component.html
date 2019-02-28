@@ -1,9 +1,9 @@
 <div class="form-container">
-  <app-error-message [(show)]="showExpiredMsg">
+  <app-error-message [(show)]="showErrorExpired">
     Two factor authorization token has expired.  You will need to login again
     <a color="primary" routerLink="/login">here</a>.
   </app-error-message>
-  <app-error-message [(show)]="showInvalidCodeMsg">
+  <app-error-message [(show)]="showErrorInvalidCode">
     The code you entered is invalid.
   </app-error-message>
 

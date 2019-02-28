@@ -14,10 +14,10 @@ import { passwordMatchValidator } from '../../components/password/password-match
 })
 export class RegisterComponent implements OnInit {
   mainForm: FormGroup;
-  showDuplicateMsg: boolean;
+  showErrorDuplicateEmail: boolean;
 
   constructor(private angularExampleService: AngularExampleService, private router: Router) {
-    this.showDuplicateMsg = false;
+    this.showErrorDuplicateEmail = false;
   }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.resetShowMsg();
+    this.resetErrorMessages();
     if (this.mainForm.valid) {
       const user = this.mainForm.value;
       this.angularExampleService
@@ -42,15 +42,15 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private resetShowMsg() {
-    this.showDuplicateMsg = false;
+  private resetErrorMessages() {
+    this.showErrorDuplicateEmail = false;
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         if ((response as HttpResponse<any>).body.user.verified) {
-          this.router.navigate(['/login', { showRegistrationMsg: true }]);
+          this.router.navigate(['/login', { showMessageRegistration: true }]);
         } else {
           this.router.navigate(['/verify/sent']);
         }
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       case 400:
         // TODO: Handle 400 with error.fieldErrors.user.email[0] =
         //   {code: "[duplicate]user.email", message: "A User with email = [test1@testerson.com] already exists."}
-        this.showDuplicateMsg = true;
+        this.showErrorDuplicateEmail = true;
         break;
     }
   }

@@ -27,8 +27,8 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordId: string;
   changeType: ChangeType;
   mainForm: FormGroup;
-  show404ErrogMsg: boolean;
-  showLoginAgainMsg: boolean;
+  showErrorLoginAgain: boolean;
+  showErrorUnableToChange: boolean;
 
   constructor(
     private angularExampleService: AngularExampleService,
@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
     private router: Router,
     private storage: StorageService
   ) {
-    this.resetShowMsg();
+    this.resetErrorMessages();
   }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   submit() {
-    this.resetShowMsg();
+    this.resetErrorMessages();
     if (this.mainForm.valid) {
       let httpRequest;
       const request = this.mainForm.value;
@@ -84,9 +84,9 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  resetShowMsg() {
-    this.show404ErrogMsg = false;
-    this.showLoginAgainMsg = false;
+  resetErrorMessages() {
+    this.showErrorUnableToChange = false;
+    this.showErrorLoginAgain = false;
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
@@ -95,10 +95,10 @@ export class ChangePasswordComponent implements OnInit {
         this.navigateOnSuccess();
         break;
       case 404:
-        this.show404ErrogMsg = true;
+        this.showErrorUnableToChange = true;
         break;
       default:
-        this.showLoginAgainMsg = true;
+        this.showErrorLoginAgain = true;
     }
   }
 
@@ -115,7 +115,7 @@ export class ChangePasswordComponent implements OnInit {
         .login(request)
         .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
     } else {
-      const options = (this.changeType === ChangeType.SetupPassword) ? { showPasswordSetupMsg: true } : { showPasswordChangeMsg: true };
+      const options = (this.changeType === ChangeType.SetupPassword) ? { showMessagePasswordSetup: true } : { showMessagePasswordChange: true };
       this.router.navigate(['/login', options]);
     }
   }
@@ -131,7 +131,7 @@ export class ChangePasswordComponent implements OnInit {
         this.router.navigate(['/login/two-factor', body.twoFactorId ]);
         break;
       default:
-        this.showLoginAgainMsg = true;
+        this.showErrorLoginAgain = true;
     }
 
   }

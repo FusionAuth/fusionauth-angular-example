@@ -6,20 +6,28 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 
 
+enum VerificationStatus {
+  VerifyingEmail,
+  EmailVerified,
+  InvalidToken
+}
+
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.css']
 })
 export class VerifyEmailComponent implements OnInit {
+  VerificationStatus = VerificationStatus;
+
   mainForm: FormGroup;
-  showResendErrorMsg: boolean;
-  showInvalidMsg: boolean;
-  verificationStatus: string;
+  showErrorInvalidCode: boolean;
+  showErrorResendFailed: boolean;
+  verificationStatus: VerificationStatus;
 
   constructor(private route: ActivatedRoute, private fusionAuthService: FusionAuthService, private router: Router) {
     this.resetMsg();
-    this.verificationStatus = 'verifyingEmail';
+    this.verificationStatus = VerificationStatus.VerifyingEmail;
   }
 
   ngOnInit() {
@@ -35,11 +43,11 @@ export class VerifyEmailComponent implements OnInit {
   handleVerifyResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
-        this.verificationStatus = 'emailVerified';
+        this.verificationStatus = VerificationStatus.EmailVerified;
         break;
       case 404:
-        this.verificationStatus = 'invalidToken';
-        this.showInvalidMsg = true;
+        this.verificationStatus = VerificationStatus.InvalidToken;
+        this.showErrorInvalidCode = true;
         break;
     }
   }
@@ -54,8 +62,8 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   resetMsg() {
-    this.showInvalidMsg = false;
-    this.showResendErrorMsg = false;
+    this.showErrorInvalidCode = false;
+    this.showErrorResendFailed = false;
   }
 
   handleResendResponse(response: HttpResponse<any> | HttpErrorResponse) {
@@ -64,7 +72,7 @@ export class VerifyEmailComponent implements OnInit {
         this.router.navigate(['/verify/sent']);
         break;
       default:
-        this.showResendErrorMsg = true;
+        this.showErrorResendFailed = true;
         break;
     }
   }

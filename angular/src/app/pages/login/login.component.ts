@@ -16,10 +16,11 @@ import { StorageService } from '../../shared/storage/storage.service';
 
 export class LoginComponent implements OnInit {
   mainForm: FormGroup;
-  showInvalidMsg: boolean;
-  showNotAuthorizedMsg: boolean;
-  showPasswordChangeMsg: boolean;
-  showRegistrationMsg: boolean;
+  showErrorInvalidLogin: boolean;
+  showErrorNotAuthorized: boolean;
+  showMessagePasswordChange: boolean;
+  showMessagePasswordSetup: boolean;
+  showMessageRegistration: boolean;
 
   constructor(
     private fusionAuthService: FusionAuthService,
@@ -27,12 +28,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private storage: StorageService
   ) {
-    this.resetShowMsg();
+    this.resetErrorMessages();
   }
 
   ngOnInit() {
-    this.showRegistrationMsg = this.route.snapshot.paramMap.get('showRegistrationMsg') === 'true';
-    this.showPasswordChangeMsg = this.route.snapshot.paramMap.get('showPasswordChangeMsg') === 'true';
+    this.setupMessages();
     const deviceId = this.storage.getDeviceId();
     this.mainForm = new FormGroup({
       device: new FormControl(deviceId),
@@ -41,8 +41,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  setupMessages() {
+    const paramMap = this.route.snapshot.paramMap;
+    this.showMessagePasswordChange = paramMap.get('showMessagePasswordChange') === 'true';
+    this.showMessagePasswordSetup = paramMap.get('showMessagePasswordSetup') === 'true';
+    this.showMessageRegistration = paramMap.get('showMessageRegistration') === 'true';
+  }
+
   submit() {
-    this.resetShowMsg();
+    this.resetErrorMessages();
     if (this.mainForm.valid) {
       this.fusionAuthService
         .login(this.mainForm.value)
@@ -50,9 +57,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  resetShowMsg() {
-    this.showInvalidMsg = false;
-    this.showNotAuthorizedMsg = false;
+  resetErrorMessages() {
+    this.showErrorInvalidLogin = false;
+    this.showErrorNotAuthorized = false;
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
@@ -67,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
         break;
       case 202:
-        this.showNotAuthorizedMsg = true;
+        this.showErrorNotAuthorized = true;
         break;
       case 203:
         this.router.navigate(['/password/change-required', body.changePasswordId]);
@@ -76,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/login/two-factor', body.twoFactorId ]);
         break;
       default:
-       this.showInvalidMsg = true;
+       this.showErrorInvalidLogin = true;
     }
   }
 }

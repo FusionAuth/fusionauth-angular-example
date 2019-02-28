@@ -1,5 +1,5 @@
 <div class="form-container" [ngSwitch]="verificationStatus">
-  <div *ngSwitchCase="'verifyingEmail'">
+  <div *ngSwitchCase="VerificationStatus.VerifyingEmail">
     <mat-card>
       <mat-card-title>Verifying</mat-card-title>
       <mat-card-content>
@@ -10,12 +10,12 @@
     </mat-card>
   </div>
 
-  <div *ngSwitchCase="'invalidToken'">
+  <div *ngSwitchCase="VerificationStatus.InvalidToken">
     <form [formGroup]="mainForm">
-      <app-error-message [(show)]="showInvalidMsg">
-        Sorry. The request contains an invalid or expired verification Id. You may need to request another verification to be sent.
+      <app-error-message [(show)]="showErrorInvalidCode">
+        The request contains an invalid or expired verification code. Please request another verification to be sent.
       </app-error-message>
-      <app-error-message [(show)]="showResendErrorMsg">
+      <app-error-message [(show)]="showErrorResendFailed">
         Unable to resend email verification.  Please try again later.
       </app-error-message>
       <mat-card>
@@ -39,7 +39,7 @@
     </form>
   </div>
 
-  <div *ngSwitchCase="'emailVerified'">
+  <div *ngSwitchCase="VerificationStatus.EmailVerified">
     <mat-card>
       <mat-card-title>Email verification</mat-card-title>
       <mat-card-content>

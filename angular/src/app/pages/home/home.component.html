@@ -1,9 +1,9 @@
 <div class="home-container">
-  <mat-card>
+  <mat-card class="home-card">
     <mat-card-title>FusionAuth Angular Example</mat-card-title>
     <mat-card-content>
+      <h3 mat-subheader>Basic User flow</h3>
       <mat-list>
-        <h3 mat-subheader>Basic User flow</h3>
         <mat-list-item class="basic-flow">
           <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
           <ng-template #LoggedIn>
@@ -17,8 +17,8 @@
         </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
-      <mat-nav-list dense>
-        <h3 mat-subheader>Quick Links</h3>
+      <h3 mat-subheader>Quick Links</h3>
+      <mat-nav-list dense class="scrollable">
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" routerLink="/login/two-factor/token">
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>Two Factor (with invalid token)
@@ -41,14 +41,14 @@
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Change Password w/ change required message
         </a>
-        <a mat-list-item color="primary" [routerLink]="['/login', { showPasswordChangeMsg: true }]">
+        <a mat-list-item color="primary" [routerLink]="['/login', { showMessagePasswordChange: true }]">
           <mat-icon matListIcon></mat-icon>
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Login w/ password change message
         </a>
 
         <a mat-list-item color="primary" routerLink="/user/register">Sign Up</a>
-        <a mat-list-item color="primary" [routerLink]="['/login', { showRegistrationMsg: true }]">
+        <a mat-list-item color="primary" [routerLink]="['/login', { showMessageRegistration: true }]">
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Login w/ registration message
         </a>
@@ -69,6 +69,11 @@
           <mat-icon matListIcon>email</mat-icon>
           <mat-icon matListIcon>arrow_right_alt</mat-icon>
           Setup Password (with invalid token)
+        </a>
+        <a mat-list-item color="primary" [routerLink]="['/login', { showMessagePasswordSetup: true }]">
+          <mat-icon matListIcon></mat-icon>
+          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
+          Login w/ setup message
         </a>
       </mat-nav-list>
     </mat-card-content>

@@ -12,13 +12,13 @@ import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service'
 })
 
 export class ForgotPasswordComponent implements OnInit {
-  showNotEnabledMsg: boolean;
-  showInvalidMsg: boolean;
-  showNoEmailMsg: boolean;
   mainForm: FormGroup;
+  showErrorInvalidEmail: boolean;
+  showErrorNoEmail: boolean;
+  showErrorNotEnabled: boolean;
 
   constructor(private fusionAuthService: FusionAuthService, private router: Router) {
-    this.resetShowMsg();
+    this.resetErrorMessages();
   }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   submit() {
-    this.resetShowMsg();
+    this.resetErrorMessages();
     if (this.mainForm.valid) {
       this.fusionAuthService
         .forgotPassword(this.mainForm.value)
@@ -36,10 +36,10 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
-  private resetShowMsg() {
-    this.showNotEnabledMsg = false;
-    this.showInvalidMsg = false;
-    this.showNoEmailMsg = false;
+  private resetErrorMessages() {
+    this.showErrorNotEnabled = false;
+    this.showErrorInvalidEmail = false;
+    this.showErrorNoEmail = false;
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
@@ -48,16 +48,16 @@ export class ForgotPasswordComponent implements OnInit {
         this.router.navigate(['/password/sent']);
         break;
       case 403:
-        this.showNotEnabledMsg = true;
+        this.showErrorNotEnabled = true;
         break;
       case 404:
-        this.showInvalidMsg = true;
+        this.showErrorInvalidEmail = true;
         break;
       case 422:
-        this.showNoEmailMsg = true;
+        this.showErrorNoEmail = true;
         break;
       default:
-        this.showInvalidMsg = true;
+        this.showErrorInvalidEmail = true;
         break;
     }
   }

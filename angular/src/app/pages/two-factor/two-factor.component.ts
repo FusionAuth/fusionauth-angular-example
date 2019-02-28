@@ -13,10 +13,10 @@ import { StorageService } from '../../shared/storage/storage.service';
   templateUrl: './two-factor.component.html'
 })
 export class TwoFactorComponent implements OnInit {
-  showExpiredMsg: boolean;
-  showInvalidCodeMsg: boolean;
-  twoFactorId: string;
   mainForm: FormGroup;
+  showErrorExpired: boolean;
+  showErrorInvalidCode: boolean;
+  twoFactorId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,10 +52,10 @@ export class TwoFactorComponent implements OnInit {
         this.router.navigate(['']);
         break;
       case 404:
-        this.showExpiredMsg = true;
+        this.showErrorExpired = true;
         break;
       case 421:
-        this.showInvalidCodeMsg = true;
+        this.showErrorInvalidCode = true;
     }
   }
 }
