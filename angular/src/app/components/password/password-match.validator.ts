@@ -18,6 +18,6 @@ export const passwordMatchValidator: ValidatorFn = (group: FormGroup): Validatio
 
 export class PasswordMatchErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return control.dirty && form.invalid;
+    return control.dirty && form.hasError('passwordMismatch');
   }
 }
