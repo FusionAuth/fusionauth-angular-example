@@ -92,7 +92,7 @@ export class ChangePasswordComponent implements OnInit {
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
-        this.navigateOnSuccess();
+        this.navigateOnSuccess(response);
         break;
       case 404:
         this.showErrorUnableToChange = true;
@@ -102,20 +102,19 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  navigateOnSuccess() {
-    if (this.changeType === ChangeType.UserRequested) {
-      // TODO: This is a hack! Eventually we will have a OTP and will not need email to relogin.
+  navigateOnSuccess(response) {
+    if (this.changeType === ChangeType.ChangeRequired || this.changeType === ChangeType.UserRequested) {
       const request = {
         device: this.storage.getDeviceId(),
-        loginId: localStorage.getItem('fusionauth.loginId'),
-        password: this.mainForm.get('password').value
+        oneTimePassword: response.body.oneTimePassword
       };
-      // TODO: END
       this.fusionAuthService
         .login(request)
         .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
     } else {
-      const options = (this.changeType === ChangeType.SetupPassword) ? { showMessagePasswordSetup: true } : { showMessagePasswordChange: true };
+      const options = (this.changeType === ChangeType.SetupPassword) ?
+        { showMessagePasswordSetup: true } :
+        { showMessagePasswordChange: true };
       this.router.navigate(['/login', options]);
     }
   }
@@ -127,12 +126,8 @@ export class ChangePasswordComponent implements OnInit {
         this.storage.setAccessToken(body.token);
         this.router.navigate(['']);
         break;
-      case 242:
-        this.router.navigate(['/login/two-factor', body.twoFactorId ]);
-        break;
       default:
         this.showErrorLoginAgain = true;
     }
-
   }
 }

@@ -37,7 +37,7 @@ const callFusionAuthChangePassword = (outgoingResponse, body) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': config.apiKey
+      'Authorization': 'JWT ' + body.accessToken
     }
   };
   const filteredBody = JSON.stringify({

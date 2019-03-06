@@ -45,17 +45,24 @@ export class TwoFactorComponent implements OnInit {
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
+    const body = (response as HttpResponse<any>).body;
     switch (response.status) {
       case 200:
-        const body = (response as HttpResponse<any>).body;
         this.storage.setAccessToken(body.token);
         this.router.navigate(['']);
+        break;
+      case 203:
+        this.router.navigate(['/password/change-required', body.changePasswordId]);
         break;
       case 404:
         this.showErrorExpired = true;
         break;
       case 421:
         this.showErrorInvalidCode = true;
+        break;
+      default:
+        this.showErrorExpired = true;
+        break;
     }
   }
 }

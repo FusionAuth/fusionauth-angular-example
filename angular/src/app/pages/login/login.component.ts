@@ -63,10 +63,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
-    // TODO: This is a hack!  We are storing email so Two Factor + Change Password will complete
-    // Eventually will get a OTP back and be able to remove this:
-    localStorage.setItem('fusionauth.loginId', this.mainForm.value.loginId);
-    // TODO: END
     const body = (response as HttpResponse<any>).body;
     switch (response.status) {
       case 200:

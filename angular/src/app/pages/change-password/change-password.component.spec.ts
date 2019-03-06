@@ -49,8 +49,6 @@ describe('ChangePasswordComponent', () => {
   }));
 
   beforeEach(() => {
-    // const route = TestBed.get(ActivatedRoute);
-    // route.url.value[0].path = '/password/change/token';
     fixture = TestBed.createComponent(ChangePasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
