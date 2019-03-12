@@ -8,7 +8,7 @@ const verifyAccessToken = (incomingRequest, outgoingResponse) => {
     port: config.port,
     path: '/api/jwt/validate',
     headers: {
-      Authorization: 'JWT ' + body.accessToken
+      Authorization: 'JWT ' + incomingRequest.cookies.accessToken
     }
   };
   const verifyRequest = http.get(options, (verifyResponse) => {
@@ -20,7 +20,7 @@ const verifyAccessToken = (incomingRequest, outgoingResponse) => {
       if (verifyResponse.statusCode === 200) {
         const data = JSON.parse(responseString);
         body.loginId = data.jwt.email;
-        callFusionAuthChangePassword(outgoingResponse, body);
+        callFusionAuthChangePassword(incomingRequest, outgoingResponse);
       } else {
         outgoingResponse.status(verifyResponse.statusCode).send(responseString);
       }
@@ -29,7 +29,8 @@ const verifyAccessToken = (incomingRequest, outgoingResponse) => {
   verifyRequest.end();
 }
 
-const callFusionAuthChangePassword = (outgoingResponse, body) => {
+const callFusionAuthChangePassword = (incomingRequest, outgoingResponse) => {
+  const body = incomingRequest.body;
   const options = {
     host: config.host,
     port: config.port,
@@ -37,7 +38,7 @@ const callFusionAuthChangePassword = (outgoingResponse, body) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'JWT ' + body.accessToken
+      'Authorization': 'JWT ' + incomingRequest.cookies.accessToken
     }
   };
   const filteredBody = JSON.stringify({
@@ -59,5 +60,5 @@ const callFusionAuthChangePassword = (outgoingResponse, body) => {
 }
 
 module.exports = {
-  changePassword: verifyAccessToken
+  changePassword: callFusionAuthChangePassword
 }

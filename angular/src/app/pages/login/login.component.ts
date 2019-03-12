@@ -4,8 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { PasswordComponent } from '../../components/password/password.component';
+import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
+import { PasswordComponent } from '../../components/password/password.component';
 import { StorageService } from '../../shared/storage/storage.service';
 
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   showMessageRegistration: boolean;
 
   constructor(
+    private angularExampleService: AngularExampleService,
     private fusionAuthService: FusionAuthService,
     private route: ActivatedRoute,
     private router: Router,
@@ -66,8 +68,9 @@ export class LoginComponent implements OnInit {
     const body = (response as HttpResponse<any>).body;
     switch (response.status) {
       case 200:
-        this.storage.setAccessToken(body.token);
-        this.router.navigate(['']);
+        this.angularExampleService
+          .setCookies(body)
+          .subscribe((r) => this.handleCookieResponse(r), (e) => this.handleCookieResponse(e));
         break;
       case 202:
         this.showErrorNotAuthorized = true;
@@ -77,6 +80,17 @@ export class LoginComponent implements OnInit {
         break;
       case 242:
         this.router.navigate(['/login/two-factor', body.twoFactorId ]);
+        break;
+      default:
+       this.showErrorInvalidLogin = true;
+    }
+  }
+
+  handleCookieResponse(response: HttpResponse<any> | HttpErrorResponse) {
+    switch (response.status) {
+      case 200:
+        this.storage.setLoggedIn(true);
+        this.router.navigate(['']);
         break;
       default:
        this.showErrorInvalidLogin = true;

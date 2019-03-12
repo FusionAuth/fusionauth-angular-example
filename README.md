@@ -33,7 +33,7 @@ node server.js
 Log into FusionAuth and create a new API key using the value from the `server/config/config.json`.  Then create a new application using the value from `angular/src/environments/environments.ts`.
 
 ### Email templates
-Log in to FusionAuth and edit each of the email templates (Email Verification, Setup Password, and Forgot Password) and change `localhost:9011` to `localhost:4200`.  In the Setup Password template you can also change `/password/change` to `/password/setup`.  In this example app that will give you some additional info when you click on the link that you are seting up your password for the first time.
+Log in to FusionAuth and edit each of the email templates (Email Verification, Setup Password, and Forgot Password) and change `localhost:9011` to `localhost:4200`.  In the Setup Password template you can also change `/password/change` to `/password/setup`.  In this example app that will give you some additional info when you click on the link that you are setting up your password for the first time.
 
 
 ## The Example App
@@ -73,7 +73,7 @@ For the Reset Password page:
 #### Sign Up
 ![](images/FusionAuth%20Angular%20Example-Sign%20Up.png)
 
-> *Note that in the Angular example the only way to get to the Email Verified page is to complete the workflow using a valid token that you recieve in email.*
+> *Note that in the Angular example the only way to get to the Email Verified page is to complete the workflow using a valid token that you receive in email.*
 
 On the Sign Up page:
 * Error 400: A user with that username or email already exists
@@ -82,13 +82,12 @@ On the Resend Verification Email page:
 * Error 404: The token is invalid and the user will need to resend the verification email.
 
 #### Change Password
-> *This functionality is currently being changed and documentation will arrive shortly*
+> *Image coming soon.*
 
-<!-- #### Change / Reset password -->
-<!-- Error cases: -->
-<!-- in by identity enter a invalid user or a valid user and incorrect current password to get a 404 -->
-<!-- use an invalid token get a 404 -->
-<!-- enter an invalid (e.g. 'pass' which is too short) password to get a 400 is no longer possible with email validations -->
+On the change password page:
+* Error 401: The access token has expired.  If the attempt to refresh the access token fails (because the refresh token has also expired) then the user will be directed to login again.
+* Error 404: Invalid current password.
+
 
 ## Adding username to the Sign Up page
 You will need to add `username` several places:
@@ -124,7 +123,8 @@ this.mainForm = new FormGroup({
   ...
 });
 ```
-Also, during the various scenarios where you are sending emails (e.g. registration) and you are using gmail (e.g. valid_email@gmail.com) you can create a user with a valid email like so:
+Also, during the various scenarios where you are sending emails (e.g. registration) and you are using gmail (e.g. valid_email@gmail.com) you can create a user with a valid email:
 ```
 email: new FormControl('valid_email+t' + Date.now() + '@gmail.com', ...)
 ```
+Now any email verification or forgot password emails will still arrive since gmail will ignore the `+` and anything after.

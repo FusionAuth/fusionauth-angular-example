@@ -4,6 +4,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
+import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 import { StorageService } from '../../shared/storage/storage.service';
 
@@ -19,6 +20,7 @@ export class TwoFactorComponent implements OnInit {
   twoFactorId: string;
 
   constructor(
+    private angularExampleService: AngularExampleService,
     private route: ActivatedRoute,
     private fusionAuthService: FusionAuthService,
     private router: Router,
@@ -48,8 +50,9 @@ export class TwoFactorComponent implements OnInit {
     const body = (response as HttpResponse<any>).body;
     switch (response.status) {
       case 200:
-        this.storage.setAccessToken(body.token);
-        this.router.navigate(['']);
+        this.angularExampleService
+          .setCookies(body)
+          .subscribe((r) => this.handleCookieResponse(r), (e) => this.handleCookieResponse(e));
         break;
       case 203:
         this.router.navigate(['/password/change-required', body.changePasswordId]);
@@ -63,6 +66,17 @@ export class TwoFactorComponent implements OnInit {
       default:
         this.showErrorExpired = true;
         break;
+    }
+  }
+
+  handleCookieResponse(response: HttpResponse<any> | HttpErrorResponse) {
+    switch (response.status) {
+      case 200:
+        this.storage.setLoggedIn(true);
+        this.router.navigate(['']);
+        break;
+      default:
+       this.showErrorExpired = true;
     }
   }
 }

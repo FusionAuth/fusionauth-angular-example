@@ -56,8 +56,6 @@ export class RegisterComponent implements OnInit {
         }
         break;
       case 400:
-        // TODO: Handle 400 with error.fieldErrors.user.email[0] =
-        //   {code: "[duplicate]user.email", message: "A User with email = [test1@testerson.com] already exists."}
         this.showErrorDuplicateEmail = true;
         break;
     }

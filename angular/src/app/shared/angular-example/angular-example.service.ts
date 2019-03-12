@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { HttpRequestBuilder } from '../http-request-builder/http-request-builder';
-import { StorageService } from '../storage/storage.service';
 
 
 @Injectable({
@@ -13,13 +12,12 @@ export class AngularExampleService {
   applicationId: string;
   baseUrl: string;
 
-  constructor(private http: HttpClient, private storage: StorageService) {
+  constructor(private http: HttpClient) {
     this.applicationId = environment.fusionauth.applicationId;
     this.baseUrl = environment.angularExample.apiUrl;
   }
 
   changePassword(request) {
-    request.accessToken = this.storage.getAccessToken();
     return this.start()
       .setUri('/api/user/change-password')
       .setJsonBody(request)
@@ -38,6 +36,21 @@ export class AngularExampleService {
     return this.start()
       .setUri('/api/user/registration')
       .setJsonBody(request)
+      .setMethod('POST')
+      .build();
+  }
+
+  deleteCookies() {
+    return this.start()
+      .setUri('/api/fusionauth/cookies')
+      .setMethod('DELETE')
+      .build();
+  }
+
+  setCookies(cookies) {
+    return this.start()
+      .setUri('/api/fusionauth/cookies')
+      .setJsonBody(cookies)
       .setMethod('POST')
       .build();
   }

@@ -13,7 +13,6 @@ export class FusionAuthService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    // TODO: add appId to methods below
     this.applicationId = environment.fusionauth.applicationId;
     this.baseUrl = environment.fusionauth.apiUrl;
   }
@@ -26,6 +25,15 @@ export class FusionAuthService {
       .setMethod('POST')
       .build();
   }
+
+  exchangeRefreshTokenForJWT(request) {
+      return this.start()
+        .setUri('/api/jwt/refresh')
+        .setJsonBody(request)
+        .setMethod('POST')
+        .build();
+  }
+
 
   forgotPassword(request) {
     return this.start()

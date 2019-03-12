@@ -75,12 +75,12 @@ export class ChangePasswordComponent implements OnInit {
       let httpRequest;
       const request = this.mainForm.value;
       delete request.confirmPassword;
-      if (this.changeType === ChangeType.UserRequested) {
-        httpRequest = this.angularExampleService.changePassword(request);
+      httpRequest = this.fusionAuthService.changePassword(this.changePasswordId, request);
+      if (this.changeType !== ChangeType.UserRequested) {
+        httpRequest.subscribe((r) => this.handleOtherResponse(r), (e) => this.handleOtherResponse(e));
       } else {
-        httpRequest = this.fusionAuthService.changePassword(this.changePasswordId, request);
+        httpRequest.subscribe((r) => this.handleUserRequestedResponse(r), (e) => this.handleUserRequestedResponse(e));
       }
-      httpRequest.subscribe((r) => this.handleResponse(r), (e) => this.handleResponse(e));
     }
   }
 
@@ -89,7 +89,7 @@ export class ChangePasswordComponent implements OnInit {
     this.showErrorLoginAgain = false;
   }
 
-  handleResponse(response: HttpResponse<any> | HttpErrorResponse) {
+  handleOtherResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
         this.navigateOnSuccess(response);
@@ -103,14 +103,8 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   navigateOnSuccess(response) {
-    if (this.changeType === ChangeType.ChangeRequired || this.changeType === ChangeType.UserRequested) {
-      const request = {
-        device: this.storage.getDeviceId(),
-        oneTimePassword: response.body.oneTimePassword
-      };
-      this.fusionAuthService
-        .login(request)
-        .subscribe((r) => this.handleRelogin(r), (e) => this.handleRelogin(e));
+    if (this.changeType === ChangeType.ChangeRequired) {
+      this.loginWithOneTimePassword(response);
     } else {
       const options = (this.changeType === ChangeType.SetupPassword) ?
         { showMessagePasswordSetup: true } :
@@ -119,15 +113,48 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  handleRelogin(response: HttpResponse<any> | HttpErrorResponse) {
-    const body = (response as HttpResponse<any>).body;
+  handleUserRequestedResponse(response: HttpResponse<any> | HttpErrorResponse) {
     switch (response.status) {
       case 200:
-        this.storage.setAccessToken(body.token);
-        this.router.navigate(['']);
+        this.loginWithOneTimePassword(response as HttpResponse<any>);
+        break;
+      // TODO: Remove 400 when correct code is in FA build
+      case 400:
+      case 401:
+        this.fusionAuthService
+          .exchangeRefreshTokenForJWT({})
+          .subscribe(
+            (res) => this.submit(),
+            (err) => this.showErrorLoginAgain = true
+          );
+        break;
+      case 404:
+        this.showErrorUnableToChange = true;
         break;
       default:
         this.showErrorLoginAgain = true;
     }
+  }
+
+  loginWithOneTimePassword(response: HttpResponse<any>) {
+    const request = {
+      device: this.storage.getDeviceId(),
+      oneTimePassword: response.body.oneTimePassword
+    };
+    this.fusionAuthService
+      .login(request)
+      .subscribe((r) => this.handleLoginSuccess(r), (e) => this.showErrorLoginAgain = true);
+  }
+
+  handleLoginSuccess(response: HttpResponse<any>) {
+    const body = (response as HttpResponse<any>).body;
+    this.angularExampleService
+      .setCookies(body)
+      .subscribe((r) => this.handleSetCookieSucces(r), (e) => this.showErrorLoginAgain = true);
+  }
+
+  handleSetCookieSucces(response: HttpResponse<any>) {
+    this.storage.setLoggedIn(true);
+    this.router.navigate(['']);
   }
 }

@@ -14,11 +14,16 @@ describe('StorageService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should remove item if value is null', () => {
+  it('should set/getLoggedIn', () => {
     const service: StorageService = TestBed.get(StorageService);
-    service.setAccessToken('TokenValue');
-    expect(service.getAccessToken()).toEqual('TokenValue');
-    service.setAccessToken(null);
-    expect(service.getAccessToken()).toEqual(null);
+    service.setLoggedIn(true);
+    expect(service.getLoggedIn()).toEqual(true);
+    service.setLoggedIn(false);
+    expect(service.getLoggedIn()).toEqual(false);
+  });
+
+  it('should false by default for getLoggedIn', () => {
+    const service: StorageService = TestBed.get(StorageService);
+    expect(service.getLoggedIn()).toEqual(false);
   });
 });

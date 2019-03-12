@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service';
 import { TwoFactorComponent } from './two-factor.component';
@@ -25,6 +26,7 @@ describe('TwoFactorComponent', () => {
         RouterTestingModule.withRoutes([{ path: 'login/two-factor/:id', component: TwoFactorComponent }])
       ],
       providers:    [
+        { provide: AngularExampleService, useValue: null },
         { provide: FusionAuthService, useValue: null }
       ]
 

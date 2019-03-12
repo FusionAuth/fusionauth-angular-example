@@ -58,10 +58,9 @@
 * Login
 * Two factor
 * Change password
-* (should be able to login behind the scenes, but )
+* (user will be relogged in behind the scenes)
 * Redirect to home page
 > This has not been tested
-
 
 ### With invalid token
 * Use a fake token

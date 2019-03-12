@@ -25,24 +25,17 @@ export class StorageService {
     return this.getItem('deviceId');
   }
 
-  getEmail() {
-    return this.getItem('email');
-  }
-
-  getAccessToken() {
-    return this.getItem('accessToken');
+  getLoggedIn() {
+    return this.getItem('isLoggedIn') === 'true';
   }
 
   private getItem(item: string) {
     return localStorage.getItem('fusionauth.' + item);
   }
 
-  setAccessToken(value: string) {
-    return this.setItem('accessToken', value);
-  }
-
-  setEmail(value: string) {
-    return this.setItem('email', value);
+  setLoggedIn(value: boolean) {
+    const stringValue = value ? 'true' : null;
+    return this.setItem('isLoggedIn', stringValue);
   }
 
   private setItem(key: string, value: string) {
