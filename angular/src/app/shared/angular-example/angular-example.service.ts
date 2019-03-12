@@ -17,11 +17,10 @@ export class AngularExampleService {
     this.baseUrl = environment.angularExample.apiUrl;
   }
 
-  changePassword(request) {
+  loadExample() {
     return this.start()
-      .setUri('/api/user/change-password')
-      .setJsonBody(request)
-      .setMethod('POST')
+      .setUri('/api/example')
+      .setMethod('GET')
       .build();
   }
 

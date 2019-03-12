@@ -1,12 +1,20 @@
 const bodyParser = require("body-parser");
 const config = require('./config/config.json');
+<<<<<<< HEAD
 const cookieParser = require('cookie-parser');
+=======
+const cookieParser = require('cookie-parser')
+>>>>>>> api-test
 const cors = require('cors');
 const express = require('express');
 const http = require('http');
 
 
+<<<<<<< HEAD
 const changePassword = require('./routes/change-password');
+=======
+const exampleApi = require('./routes/example-api');
+>>>>>>> api-test
 const registerUser = require('./routes/register-user');
 const fusionAuth = require('./routes/fusionauth');
 
@@ -23,9 +31,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.post('/api/user/registration', registerUser.registerUser);
+<<<<<<< HEAD
 app.post('/api/user/change-password', changePassword.changePassword);
 app.post('/api/fusionauth/cookies', fusionAuth.setCookies);
 app.delete('/api/fusionauth/cookies', fusionAuth.deleteCookies);
+=======
+app.delete('/api/fusionauth/cookies', fusionAuth.deleteCookies);
+app.post('/api/fusionauth/cookies', fusionAuth.setCookies);
+app.get('/api/example', exampleApi.example);
+>>>>>>> api-test
 
 app.listen(port, (err) => {
   if (err) {

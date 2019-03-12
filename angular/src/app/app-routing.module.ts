@@ -10,10 +10,12 @@ import { RegisterComponent } from './pages/register/register.component';
 import { TwoFactorComponent } from './pages/two-factor/two-factor.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { VerifyEmailSentComponent } from './pages/verify-email-sent/verify-email-sent.component';
+import { ExampleComponent } from './pages/example/example.component';
 
 
 const routes: Routes = [
   { path: 'email/verify/:id', component: VerifyEmailComponent },
+  { path: 'example', component: ExampleComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/two-factor/:id', component: TwoFactorComponent },
   { path: 'password/change', component: ChangePasswordComponent },

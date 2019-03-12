@@ -28,6 +28,7 @@ import { PasswordComponent } from './components/password/password.component';
 import { PasswordSentComponent } from './pages/password-sent/password-sent.component';
 import { VerifyEmailSentComponent } from './pages/verify-email-sent/verify-email-sent.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { ExampleComponent } from './pages/example/example.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     PasswordComponent,
     PasswordSentComponent,
     VerifyEmailSentComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ExampleComponent
   ],
   imports: [
     AppRoutingModule,

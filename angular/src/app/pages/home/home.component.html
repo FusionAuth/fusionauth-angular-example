@@ -4,17 +4,22 @@
     <mat-card-content>
       <h4 mat-subheader>Basic User flow</h4>
       <mat-list>
-        <mat-list-item class="basic-flow">
           <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
           <ng-template #LoggedIn>
-            <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
-            <a mat-stroked-button color="primary" routerLink="/password/change">Change Password</a>
+            <mat-list-item class="basic-flow">
+              <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
+              <a mat-stroked-button color="primary" routerLink="/password/change">Change Password</a>
+            </mat-list-item>
+            <mat-list-item class="basic-flow">
+              <a mat-stroked-button color="primary" routerLink="/example">Token refresh example</a>
+            </mat-list-item>
           </ng-template>
           <ng-template #LoggedOut>
-            <a mat-stroked-button color="primary" routerLink="/login">Login</a>
-            <a mat-stroked-button color="primary" routerLink="/user/register">Sign up</a>
+            <mat-list-item class="basic-flow">
+              <a mat-stroked-button color="primary" routerLink="/login">Login</a>
+              <a mat-stroked-button color="primary" routerLink="/user/register">Sign up</a>
+            </mat-list-item>
           </ng-template>
-        </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
       <h4 mat-subheader>Quick Links</h4>
