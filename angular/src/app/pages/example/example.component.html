@@ -1,5 +1,27 @@
 <ul>
   <li *ngFor="let message of messages">
-    {{ message }}
+    <div [ngSwitch]="message.messageType">
+      <span *ngSwitchCase="MessageType.Stopping">
+        Stopping after 2 tries
+      </span>
+      <span *ngSwitchCase="MessageType.RequestingExample">
+        Requesting response from /api/example
+      </span>
+      <span *ngSwitchCase="MessageType.ResponseReceived">
+        Response from /api/example: {{ message.response }}
+      </span>
+      <span *ngSwitchCase="MessageType.AccessTokenExpired">
+        Access token expired.  Refreshing.
+      </span>
+      <span *ngSwitchCase="MessageType.SettingCookie">
+        Setting access token cookie.
+      </span>
+      <span *ngSwitchCase="MessageType.SetCookieFailed">
+        Set cookie failed.
+      </span>
+      <span *ngSwitchCase="MessageType.ResfreshTokenExpired">
+        Refresh token expired.  You will need to login again <a color="primary" routerLink="/login">here</a>.
+      </span>
+    </div>
   </li>
 </ul>

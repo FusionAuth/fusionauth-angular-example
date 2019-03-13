@@ -6,13 +6,25 @@ import { FusionAuthService } from '../../shared/fusion-auth/fusion-auth.service'
 import { StorageService } from '../../shared/storage/storage.service';
 
 
+enum MessageType {
+  Stopping,
+  RequestingExample,
+  ResponseReceived,
+  AccessTokenExpired,
+  SettingCookie,
+  SetCookieFailed,
+  ResfreshTokenExpired
+}
+
 @Component({
   selector: 'app-example',
   templateUrl: './example.component.html'
 })
 export class ExampleComponent implements OnInit {
+  MessageType = MessageType;
+
   tryCount: number;
-  messages: string[];
+  messages: { messageType: MessageType, response?: string }[];
 
   constructor(
     private angularExampleService: AngularExampleService,
@@ -29,10 +41,10 @@ export class ExampleComponent implements OnInit {
 
   loadExample() {
     if (this.tryCount > 1) {
-      this.messages.push('Stopping after 2 tries');
+      this.messages.push({ messageType: MessageType.Stopping });
     } else {
       this.tryCount += 1;
-      this.messages.push('Requesting response from /api/example');
+      this.messages.push({ messageType: MessageType.RequestingExample });
       this.angularExampleService
         .loadExample()
         .subscribe((r) => this.handleSuccess(r), (e) => this.handleError(e));
@@ -40,11 +52,11 @@ export class ExampleComponent implements OnInit {
   }
 
   handleSuccess(response: HttpResponse<any>) {
-    this.messages.push('Response from /api/example: ' + response.body.message);
+    this.messages.push({ messageType: MessageType.ResponseReceived, response: response.body.message });
   }
 
   handleError(error: HttpErrorResponse) {
-    this.messages.push('Access token expired.  Refreshing.');
+    this.messages.push({ messageType: MessageType.AccessTokenExpired });
     this.fusionAuthService
       .exchangeRefreshTokenForJWT({})
       .subscribe(
@@ -54,19 +66,19 @@ export class ExampleComponent implements OnInit {
   }
 
   handleRefreshSucess(response: HttpResponse<any>) {
-    this.messages.push('Setting access token cookie.');
+    this.messages.push({ messageType: MessageType.SettingCookie });
     // TODO: Is this really the right format?? If so, update change-password.
     const body = (response as HttpResponse<any>).body;
     this.angularExampleService
       .setCookies({ token: body.token.access_token })
       .subscribe(
         (r) => setTimeout(() => this.loadExample(), 1),
-        (e) => this.messages.push('Set cookie failed.')
+        (e) => this.messages.push({ messageType: MessageType.SetCookieFailed })
       );
   }
 
   handleRefreshError(error: HttpErrorResponse) {
-    this.messages.push('Refresh token expired.');
+    this.messages.push({ messageType: MessageType.ResfreshTokenExpired });
     this.storage.setLoggedIn(false);
   }
 }

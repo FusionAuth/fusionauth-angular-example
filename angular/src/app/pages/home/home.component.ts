@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { AngularExampleService } from '../../shared/angular-example/angular-example.service';
 import { StorageService } from '../../shared/storage/storage.service';

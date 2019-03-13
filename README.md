@@ -89,6 +89,24 @@ On the change password page:
 * Error 404: Invalid current password.
 
 
+## Token Refresh Example
+
+This example shows how on the backend node server a request, in this case to `/api/example` can be wrapped by a function (`verifyToken`) that will first verify the `accessToken` is valid before calling a callback function to complete the action.  If expired the frontend application will then try to refresh the token and if successful retry the initial request.  If the `refresh_token` has expired the user is logged out and directed to login again.
+
+Below are some steps that will allow you to see this in action, but first let's discuss what how and where these tokens are set.  There are two HTTP only cookies (`access_token` and `refresh_token`) set by fusionauth when you log in and are thus domain locked to `localhost:4200`.  Any communication to the node server will not have access to these so it is necessary to make a call to `/api/fusionauth/cookies` which will set a third HTTP only cookie `accessToken` for use in verifying user requests.  This cookie will be domain locked to `localhost:3000`.  It is recommended that these not be stored anywhere on the frontend (e.g. `localStorage`) that other javascript libraries might also have access to it.
+
+To see the token workflow in action:
+
+* Log in to FusionAuth and reduce the `Refresh Token` time down to 1 minutes and the `Access Token` time down to 10 seconds
+* Log in to the Angular example app
+* Click on the `Token refresh example`
+* You will see a success message without the need to refresh the access tokens
+* Wait longer than 10 seconds and then refresh the page
+* You will see messages describing refreshing the access token and then a success message
+* Wait another 50 seconds giving the refresh token time to expire and then refresh the page
+* You will see messages describing refreshing the access token and then a message that the refresh token has expired
+
+
 ## Adding username to the Sign Up page
 You will need to add `username` several places:
 
