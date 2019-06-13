@@ -1,10 +1,10 @@
 export const environment = {
   production: false,
   fusionauth: {
-    apiUrl: 'http://localhost:9011',
-    applicationId: 'ad020c90-e0c8-4173-b914-d1409b9a5da9'
+    apiUrl: "http://localhost:9011",
+    applicationId: "bf499692-4847-440d-b46f-c264113890ea	"
   },
   angularExample: {
-    apiUrl: 'http://localhost:3000'
+    apiUrl: "http://localhost:3000"
   }
 };
