@@ -1,5 +1,8 @@
 {
-  "apiKey": "afQM46wknFeOLoglTmIhRuEUcl4nUugw0LasKpVCsDQ",
+  "apiKey": "ndRtGYERFHgcHhBqbjfMPuESRY7X_6vZ6fWm4WazUv0",
+  "callbackURL": "http://localhost:3000/oauth2/callback",
+  "clientID": "bf499692-4847-440d-b46f-c264113890ea",
+  "clientSecret": "duVtuVZvoXb7kxwj7E8T7c4i6GyBRKF4KLpFmgpHxi4",
   "host": "localhost",
   "port": "9011"
 }

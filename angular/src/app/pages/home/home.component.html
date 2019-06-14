@@ -4,32 +4,54 @@
     <mat-card-content>
       <h4 mat-subheader>Basic User flow</h4>
       <mat-list>
-          <template *ngIf="isLoggedIn; then LoggedIn else LoggedOut"></template>
-          <ng-template #LoggedIn>
-            <mat-list-item class="basic-flow">
-              <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
-              <a mat-stroked-button color="primary" routerLink="/password/change">Change Password</a>
-            </mat-list-item>
-            <mat-list-item class="basic-flow">
-              <a mat-stroked-button color="primary" routerLink="/example">Token refresh example</a>
-            </mat-list-item>
-          </ng-template>
-          <ng-template #LoggedOut>
-            <mat-list-item class="basic-flow">
-              <a mat-stroked-button color="primary" routerLink="/login">Login</a>
-              <a mat-stroked-button color="primary" routerLink="/user/register">Sign up</a>
-            </mat-list-item>
-          </ng-template>
+        <template *ngIf="isLoggedIn; then LoggedIn; else LoggedOut"></template>
+        <ng-template #LoggedIn>
+          <mat-list-item class="basic-flow">
+            <button mat-stroked-button color="primary" (click)="logout()">
+              Logout
+            </button>
+            <a mat-stroked-button color="primary" routerLink="/password/change"
+              >Change Password</a
+            >
+          </mat-list-item>
+          <mat-list-item class="basic-flow">
+            <a mat-stroked-button color="primary" routerLink="/example"
+              >Token refresh example</a
+            >
+          </mat-list-item>
+        </ng-template>
+        <ng-template #LoggedOut>
+          <mat-list-item class="basic-flow">
+            <a mat-stroked-button color="primary" routerLink="/login">Login</a>
+            <a mat-stroked-button color="primary" routerLink="/user/register"
+              >Sign up</a
+            >
+          </mat-list-item>
+        </ng-template>
+      </mat-list>
+      <mat-divider></mat-divider>
+      <h4 mat-subheader>OAuth2 Flow</h4>
+      <mat-list>
+        <mat-list-item class="oauth2-flow">
+          <a
+            mat-stroked-button
+            color="primary"
+            href="http://localhost:3000/oauth2/authorize"
+            >Login</a
+          >
+        </mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
       <h4 mat-subheader>Quick Links</h4>
       <mat-nav-list dense class="scrollable">
         <a mat-list-item color="primary" routerLink="/login">Login</a>
         <a mat-list-item color="primary" routerLink="/login/two-factor/token">
-          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>Two Factor (with invalid token)
+          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>Two Factor
+          (with invalid token)
         </a>
         <a mat-list-item color="primary" routerLink="/password/forgot">
-          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>Forgot Password
+          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>Forgot
+          Password
         </a>
         <a mat-list-item color="primary" routerLink="/password/sent">
           <mat-icon matListIcon></mat-icon>
@@ -42,18 +64,30 @@
           <mat-icon matListIcon>arrow_right_alt</mat-icon>
           Reset Password (with invalid token)
         </a>
-        <a mat-list-item color="primary" [routerLink]="['/password/change-required/token']">
+        <a
+          mat-list-item
+          color="primary"
+          [routerLink]="['/password/change-required/token']"
+        >
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Change Password w/ change required message
         </a>
-        <a mat-list-item color="primary" [routerLink]="['/login', { showMessagePasswordChange: true }]">
+        <a
+          mat-list-item
+          color="primary"
+          [routerLink]="['/login', { showMessagePasswordChange: true }]"
+        >
           <mat-icon matListIcon></mat-icon>
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Login w/ password change message
         </a>
 
         <a mat-list-item color="primary" routerLink="/user/register">Sign Up</a>
-        <a mat-list-item color="primary" [routerLink]="['/login', { showMessageRegistration: true }]">
+        <a
+          mat-list-item
+          color="primary"
+          [routerLink]="['/login', { showMessageRegistration: true }]"
+        >
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Login w/ registration message
         </a>
@@ -75,14 +109,17 @@
           <mat-icon matListIcon>arrow_right_alt</mat-icon>
           Setup Password (with invalid token)
         </a>
-        <a mat-list-item color="primary" [routerLink]="['/login', { showMessagePasswordSetup: true }]">
+        <a
+          mat-list-item
+          color="primary"
+          [routerLink]="['/login', { showMessagePasswordSetup: true }]"
+        >
           <mat-icon matListIcon></mat-icon>
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           Login w/ setup message
         </a>
       </mat-nav-list>
     </mat-card-content>
-    <mat-card-actions>
-    </mat-card-actions>
+    <mat-card-actions> </mat-card-actions>
   </mat-card>
 </div>
