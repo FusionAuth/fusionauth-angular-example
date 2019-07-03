@@ -34,7 +34,7 @@ server.setMiddleware = () => {
         // Setup the CORS policy
         app.use(
             cors({
-                origin: `${ config.fusionAuth.host }:${ config.fusionAuth.port }`,
+                origin: `${ config.frontend.baseURL }`,
                 credentials: true,
                 exposedHeaders:
                     'Access-Control-Allow-Origin,Access-Control-Allow-Credentials'
