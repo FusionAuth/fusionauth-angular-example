@@ -41,14 +41,14 @@ export class AngularExampleService {
 
   deleteCookies() {
     return this.start()
-      .setUri('/api/fusionauth/cookies')
+      .setUri('/api/fusionauth/logout')
       .setMethod('DELETE')
       .build();
   }
 
   setCookies(cookies) {
     return this.start()
-      .setUri('/api/fusionauth/cookies')
+      .setUri('/api/fusionauth/login')
       .setJsonBody(cookies)
       .setMethod('POST')
       .build();
