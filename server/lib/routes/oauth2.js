@@ -26,8 +26,8 @@ passport.use(
   "fusionauth",
   new OAuth2Strategy(
     {
-      authorizationURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }/oauth2/authorize`,
-      tokenURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }/oauth2/token`,
+      authorizationURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }/api/oauth2/authorize`,
+      tokenURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }/api/oauth2/token`,
       clientID: config.fusionAuth.clientID,
       clientSecret: config.fusionAuth.clientSecret,
       callbackURL: config.fusionAuth.callbackURL

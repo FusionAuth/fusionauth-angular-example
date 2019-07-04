@@ -18,7 +18,7 @@ config.staging = {
         apiKey: "ndRtGYERFHgcHhBqbjfMPuESRY7X_6vZ6fWm4WazUv0",
         clientID: "bf499692-4847-440d-b46f-c264113890ea",
         clientSecret: "IUwnJ04HnV12zCxyak3gnKXJTNyoFk4YpLdmc4SXuFs",
-        callbackURL: "http://localhost:3000/oauth2/callback",
+        callbackURL: "http://localhost:3000/api/oauth2/callback",
         host: "http://localhost",
         port: "9011"
     },
@@ -36,7 +36,7 @@ config.production = {
         apiKey: "ndRtGYERFHgcHhBqbjfMPuESRY7X_6vZ6fWm4WazUv0",
         clientID: "bf499692-4847-440d-b46f-c264113890ea",
         clientSecret: "IUwnJ04HnV12zCxyak3gnKXJTNyoFk4YpLdmc4SXuFs",
-        callbackURL: "http://localhost:3000/oauth2/callback",
+        callbackURL: "http://localhost:3000/api/oauth2/callback",
         host: "http://localhost",
         port: "9011"
     },
