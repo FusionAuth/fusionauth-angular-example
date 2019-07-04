@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
 const passport = require('passport');
+const routes = require("./routes");
 
 // Config
 const config = require("./config");
@@ -101,8 +102,8 @@ server.startListeners = async () => {
         .catch(() => process.exit(2));
 
 
-    // Import the routes and pass the application object to them.
-    require("./routes")(app);
+    // Pass the express application to the routes object.
+    routes(app);
 }
 
 /**
