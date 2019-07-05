@@ -21,6 +21,9 @@ const config = require('../app/config');
  *
  */
 router.post("/registration", (req, res) => {
+  // Grab the body of the request.
+  const body = req.body;
+
   // Object for the FusionAuth user registration endpoint with the submitted data.
   const filteredBody = JSON.stringify({
     registration: {
