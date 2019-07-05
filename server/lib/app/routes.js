@@ -6,6 +6,9 @@
  *
  */
 
+// Dependencies
+const jwt = require("../util/jwt");
+
 // Route info
 const oauth2 = require('../routes/oauth2');
 const fusionAuth = require('../routes/fusionAuth');
@@ -15,6 +18,7 @@ const exampleApi = require('../routes/exampleApi');
 // Declare the module.
 const routes = app => {
     app.use("/api/fusionauth", fusionAuth);
+    app.use(jwt.validate);
     app.use("/api/oauth2", oauth2);
     app.use("/api/example", exampleApi);
     app.use("/api/user", user);

@@ -6,36 +6,36 @@
  */
 
 // Dependencies
-const axios = require("axios");
 const express = require("express");
 const router = express.Router();
+const axios = require("axios");
 
 // Config
-const config = require ('../app/config');
+const config = require("../app/config");
 
 /**
- * Validate JWT
+ * Grab user data
  *
- * This function validates the user's JWT that is stored in an HTTP cookie and returns
- * whether or not the JWT is valid.
+ * Fetch all of the information about a user utilizing their valid JWT and
+ * return the JSON stringified result to them.
  *
  */
 router.get("/", (req, res) => {
-  // Make the request to the FusionAuth server.
-  axios({
-    baseURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }`,
-    url: "/api/jwt/validate",
-    method: "get",
-    headers: {
-      Authorization: `JWT ${ req.cookies.accessToken }`
-    }
-  }).then(response => {
-    // Let the user know their JWT is valid.
-      res.send({ message: "Success!"});
-  }).catch(err => {
-    // Let the user know that their JWT is invalid and they must re-login.
-    res.status(401).send(err);
-  });
+    // Make the request to the FusionAuth server.
+    axios({
+        baseURL: `${ config.fusionAuth.host }:${ config.fusionAuth.port }`,
+        url: "/api/user",
+        method: "get",
+        headers: {
+            Authorization: `JWT ${ req.cookies.accessToken }`
+        }
+    }).then(response => {
+        // Send the user the stringified JSON object that is their profile.
+        res.send({ message: JSON.stringify(response.data.user) });
+    }).catch(err => {
+        // Let the user know that we could not grab their info.
+        res.status(500).send({ message: "Unable to grab your info." });
+    });
 });
 
 // Export the Example API module.
