@@ -1,4 +1,8 @@
-# FusionAuth Angular Example
+# (ARCHIVED) FusionAuth Angular Example
+
+**NOTE**": This project is no longer the correct example for Angular integration with FusionAuth. Please refer to the new https://github.com/FusionAuth/fusionauth-example-angular repository for the correct implementation of the OAuth Authorization Code Grant with FusionAuth.
+
+
 
 This project contains an example project that illustrates using FusionAuth with Angular.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
