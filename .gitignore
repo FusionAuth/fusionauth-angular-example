@@ -18,3 +18,5 @@
 # System Files
 .DS_Store
 Thumbs.db
+angular/package-lock.json
+server/package-lock.json
